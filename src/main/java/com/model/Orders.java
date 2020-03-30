@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
@@ -19,12 +18,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
-@NamedQuery(query="SELECT MAX(oid) FROM Orders", name="Orders.newOrderId")
+//@NamedQuery(query="SELECT MAX(oid) FROM Orders", name="Orders.newOrderId")
 public class Orders {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer oid;
-	private Date createDate;
+	private Date createdate;
 	private Integer shipment;
 	@ManyToOne
 	@JoinColumn(name="cid", nullable=false)
@@ -34,29 +33,29 @@ public class Orders {
 	@OrderBy("seq")
 	List<Itemline> orderDetail;
 	
-	public Orders(Integer oid, Date createDate, Integer shipment, Customer customer) {
+	public Orders(Integer oid, Date createdate, Integer shipment, Customer customer) {
 		this.oid = oid;
-		this.createDate = createDate;
+		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
 	}
 	
 	public Orders() {}
 
-	public int getOid() {
+	public Integer getOid() {
 		return oid;
 	}
 
-	public void setOid(int oid) {
+	public void setOid(Integer oid) {
 		this.oid = oid;
 	}
 
 	public Date getCreateDate() {
-		return createDate;
+		return createdate;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setCreateDate(Date createdate) {
+		this.createdate = createdate;
 	}
 
 	public int getShipment() {
