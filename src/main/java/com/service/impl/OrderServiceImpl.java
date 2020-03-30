@@ -17,6 +17,7 @@ public class OrderServiceImpl implements OrderService {
 	public void setDao(OrderDao dao) {
 		this.dao = dao;
 	}
+	
 	@Override
 	public Orders getOrderByCus(Customer customer) {
 		return dao.findByCustomer(customer);
