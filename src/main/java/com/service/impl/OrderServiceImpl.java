@@ -34,8 +34,8 @@ public class OrderServiceImpl implements OrderService {
 		dao.save(order);
 //		取得最新的oid
 		Integer oid = (Integer)dao.newOrderId();
-		Orders newOrder = dao.findByOid(oid);
-		return newOrder;
+		
+		return dao.findByOid(oid);
 	}
 
 }

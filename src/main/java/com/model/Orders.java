@@ -40,6 +40,14 @@ public class Orders {
 		this.customer = customer;
 	}
 	
+	public Orders(Integer oid, Date createdate, Integer shipment, Customer customer, List<Itemline> orderDetail) {
+		this.oid = oid;
+		this.createdate = createdate;
+		this.shipment = shipment;
+		this.customer = customer;
+		this.orderDetail = orderDetail;
+	}
+	
 	public Orders() {}
 
 	public Integer getOid() {

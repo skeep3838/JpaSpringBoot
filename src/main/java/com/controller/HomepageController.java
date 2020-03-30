@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -101,22 +102,26 @@ public class HomepageController {
 	@PostMapping("/items")
 	public String addOrder(HttpServletRequest req, @RequestParam("cid") Integer cid, Model model) {
 		List<Item> itemList = sService.getAllItem();
-//		先新增一筆訂單，取得最新訂單的Bean
-		Orders order = new Orders(null, (new Date()), 30, cService.queryCustomerById(cid));
-		Orders newOrd = oService.addOrder(order);
+		List<Itemline> orderDeatil = new ArrayList<Itemline>();
+
 //		新增訂單明細
 		for (Item i : itemList) {
 			String par = "qty" + i.getIid();
 			Integer qty = Integer.parseInt(req.getParameter(par));
 			if (qty == 0)
 				continue;
-			Itemline item = new Itemline(null, i, qty, newOrd);
-			ilService.addOrderDetail(item);
+			Itemline item = new Itemline(null, i, qty, null);
+			orderDeatil.add(item);
+//			ilService.addOrderDetail(item);			
 		}
-
+		
+//		先新增一筆訂單，取得最新訂單的Bean
+		Orders order = new Orders(null, (new Date()), 30, cService.queryCustomerById(cid),orderDeatil);
+		Orders newOrder = oService.addOrder(order);
+		
 		model.addAttribute("states", "訂購成功");
-		model.addAttribute("orderNo", newOrd.getOid());
-		model.addAttribute("orderDetail", newOrd.getOrderDetail());
+		model.addAttribute("orderNo", newOrder.getOid());
+		model.addAttribute("orderDetail", newOrder.getOrderDetail());
 		return "orderDetail";
 	}
 
