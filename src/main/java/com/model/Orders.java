@@ -29,7 +29,7 @@ public class Orders {
 	@JoinColumn(name="cid", nullable=false)
 	private Customer customer;
 	
-	@OneToMany(mappedBy="orders", cascade= {CascadeType.ALL}, orphanRemoval = false, fetch =FetchType.EAGER)
+	@OneToMany(mappedBy="orderMap", cascade= {CascadeType.ALL},orphanRemoval = false, fetch =FetchType.EAGER)
 	@OrderBy("seq")
 	List<Itemline> orderDetail;
 	

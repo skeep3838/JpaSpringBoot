@@ -29,13 +29,12 @@ public class OrderServiceImpl implements OrderService {
 	}	
 	
 	@Override
-	public Orders addOrder(Orders order) {
+	public Integer addOrder(Orders order) {
 //		先新增一筆訂單
 		dao.save(order);
 //		取得最新的oid
 		Integer oid = (Integer)dao.newOrderId();
-		
-		return dao.findByOid(oid);
+		return oid;
 	}
 
 }

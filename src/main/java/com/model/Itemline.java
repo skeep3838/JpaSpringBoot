@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "itemline")
 public class Itemline {
@@ -19,16 +20,23 @@ public class Itemline {
 	@OneToOne
 	@JoinColumn(name="iid", nullable=false)
 	private Item item;
+	
 	@ManyToOne
 	@JoinColumn(name="oid", nullable=false)
-	private Orders orders;
+	private Orders orderMap;
 	
-	public Itemline(Integer seq, Item item, Integer qty, Orders orders) {
+//	錯誤訊息
+//	@OneToOne or @ManyToOne on com.model.Itemline.oid references an unknown entity
+//	@ManyToOne
+//	@JoinColumn(name="oid", nullable=false)
+//	private Integer oid;
+	
+	public Itemline(Integer seq, Item item, Integer qty, Orders orderMap) {
 		super();
 		this.seq = seq;
 		this.item = item;
 		this.qty = qty;
-		this.orders = orders;
+		this.orderMap = orderMap;
 	}
 	
 	public Itemline() {}
@@ -58,12 +66,14 @@ public class Itemline {
 	}
 
 	public Orders getOrders() {
-		return orders;
+		return orderMap;
 	}
 
 	public void setOrders(Orders orders) {
-		this.orders = orders;
+		this.orderMap = orders;
 	}
+	
+	
 
 	
 	
