@@ -1,6 +1,5 @@
 package com.controller;
 
-
 import java.util.Date;
 import java.util.List;
 
@@ -63,6 +62,7 @@ public class HomepageController {
 	@GetMapping("/order")
 	public String getOrderById(@RequestParam("cid") Integer cid, Model model) {
 		Customer cus = cService.queryCustomerById(cid);
+		model.addAttribute("states", "會員訂單列表");
 		model.addAttribute("cid", cid);
 		model.addAttribute("cOrder", cus.getOrderList());
 		return "order";
@@ -80,14 +80,30 @@ public class HomepageController {
 
 //---------刪除訂單內商品----------------------------------------
 
-//	@GetMapping("/itemline/delete")
-//	public String deleteItemInOrder(@RequestParam("seq") Integer seq,Model model) {
-//		Orders order = ilService.deleteItem(seq);
-//		model.addAttribute("states", "會員訂單明細");
-//		model.addAttribute("orderNo", order.getOid());
-//		model.addAttribute("orderDetail", order.getOrderDetail());
-//		return "redirect:/orderDetail";
-//	}
+	@GetMapping("/itemline/delete")
+	public String deleteItemInOrder(@RequestParam("seq") Integer seq, 
+									@RequestParam("oid") Integer oid, Model model) {
+		Boolean delSeq = ilService.deleteItem(seq);
+		Itemline item = ilService.getItemlineBySeq(seq);
+		
+		Customer customer = oService.getOrderByOid(oid).getCustomer();
+//		此時刪掉最後一項，orderDetail不為null
+		if (oService.getOrderByOid(oid).getOrderDetail()==null) {
+			oService.deleteOrder(oid);
+//			Customer customer2 = oService.getOrderByOid(oid).getCustomer();
+			model.addAttribute("states", "訂單沒有商品，已刪除");
+			model.addAttribute("cid", customer.getCid());
+			model.addAttribute("cOrder", customer.getOrderList());
+			return "redirect:/order?cid="+customer.getCid();
+		} else {
+			Orders order = oService.getOrderByOid(oid);
+			model.addAttribute("states", "會員訂單明細");
+			model.addAttribute("orderNo", order.getOid());
+			model.addAttribute("orderDetail", order.getOrderDetail());
+			return "redirect:/itemline?oid=" + order.getOid();
+		}
+
+	}
 
 //-------------商品清單------------------------------------------------------------------
 	@GetMapping("/items")
@@ -97,7 +113,7 @@ public class HomepageController {
 		model.addAttribute("itemList", itemList);
 		return "itemList";
 	}
-	
+
 //----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")
 	public String addOrder(HttpServletRequest req, @RequestParam("cid") Integer cid, Model model) {
@@ -112,11 +128,12 @@ public class HomepageController {
 			if (qty == 0)
 				continue;
 			Itemline item = new Itemline(null, i, qty, oService.getOrderByOid(newOrder));
-			ilService.addOrderDetail(item);			
+			ilService.addOrderDetail(item);
 		}
-		
+//		Orders newOrderBean = oService.getOrderByOid(newOrder);
 		model.addAttribute("states", "訂購成功");
 		model.addAttribute("orderNo", newOrder);
+//		model.addAttribute("orderDetail", newOrderBean.getOrderDetail());
 		model.addAttribute("orderDetail", ilService.getOrderDetailByOrder(oService.getOrderByOid(newOrder)));
 		return "orderDetail";
 	}

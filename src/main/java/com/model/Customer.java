@@ -24,7 +24,7 @@ public class Customer {
 	private String password;
 
 	//將資料以typeID欄位 ASC方式排列後再寫進Set內
-	@OneToMany(mappedBy="customer", cascade= {CascadeType.ALL}, orphanRemoval = false, fetch =FetchType.EAGER)
+	@OneToMany(mappedBy="customer", orphanRemoval = false, fetch =FetchType.EAGER)
 	@OrderBy("oid")
 	Set<Orders> orderList;
 

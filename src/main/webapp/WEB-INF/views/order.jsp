@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="container">
-		<h2>會員訂單列表</h2>
+		<h2>${states}</h2>
 		<h3>會員ID: ${cid}</h3>
 		<div class="bs-docs-example div-height" align='center'>
 			<table id='table1' class="table table-hover">

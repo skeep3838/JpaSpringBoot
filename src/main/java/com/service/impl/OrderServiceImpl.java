@@ -37,4 +37,9 @@ public class OrderServiceImpl implements OrderService {
 		return oid;
 	}
 
+	@Override
+	public void deleteOrder(Integer oid) {
+		dao.deleteById(oid);		
+	}
+
 }

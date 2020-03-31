@@ -34,7 +34,7 @@
 							<td>${bean.item.price}
 							<td>${bean.qty}
 							<td><input style='float: right;' class='btn btn-danger'
-										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/itemline/delete?seq=${bean.seq}'"
+										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/itemline/delete?seq=${bean.seq}&oid=${orderNo}'"
 										value='取消購買' />
 					</c:forEach>
 				</tbody>

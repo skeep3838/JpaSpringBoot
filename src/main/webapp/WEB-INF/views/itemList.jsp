@@ -43,7 +43,7 @@
 				</table>
 				<input type="hidden" id="cid" name="cid" value="${cid}">
 	<!-- 			<input type="hidden" id="shopCa" name="shopCa" value=0> -->
-				<input type="submit"  value="確定購買">	
+				<input type="submit" class="btn btn-outline-primary"  value="確定購買">	
 			</form>
 		</div>
 	</div>

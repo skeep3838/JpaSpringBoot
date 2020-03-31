@@ -28,5 +28,20 @@ public class ItemLineServiceImpl implements ItemlineService {
 		dao.save(orderList);
 		
 	}
+	@Override
+	public Boolean deleteItem(Integer seq) {
+		Itemline item = dao.findBySeq(seq);
+		dao.delete(item);
+		if(dao.findBySeq(seq)==null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	@Override
+	public Itemline getItemlineBySeq(Integer seq) {
+		Itemline item = dao.findBySeq(seq);
+		return item;
+	}
 
 }

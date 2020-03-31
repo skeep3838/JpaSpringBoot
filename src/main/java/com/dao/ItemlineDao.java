@@ -10,4 +10,5 @@ import com.model.Orders;
 
 public interface ItemlineDao extends JpaRepository<Itemline, Integer>{
 	List<Itemline> findByOrderMap(Orders order);
+	Itemline findBySeq(Integer seq);
 }
