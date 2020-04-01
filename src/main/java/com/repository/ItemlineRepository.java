@@ -1,4 +1,4 @@
-package com.dao;
+package com.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.model.Itemline;
 import com.model.Orders;
 
 
-public interface ItemlineDao extends JpaRepository<Itemline, Integer>{
+public interface ItemlineRepository extends JpaRepository<Itemline, Integer>{
 	List<Itemline> findByOrderMap(Orders order);
 	Itemline findBySeq(Integer seq);
 }

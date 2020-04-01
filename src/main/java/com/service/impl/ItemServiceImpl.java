@@ -7,15 +7,15 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.ItemDao;
 import com.model.Item;
+import com.repository.ItemRepository;
 import com.service.ItemService;
 @Transactional
 @Service
 public class ItemServiceImpl implements ItemService {
 	@Autowired
-	ItemDao dao;
-	public void setDao(ItemDao dao) {
+	ItemRepository dao;
+	public void setDao(ItemRepository dao) {
 		this.dao = dao;
 	}
 	@Override

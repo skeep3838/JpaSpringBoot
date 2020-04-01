@@ -5,16 +5,16 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.OrderDao;
 import com.model.Customer;
 import com.model.Orders;
+import com.repository.OrderRepository;
 import com.service.OrderService;
 @Transactional
 @Service
 public class OrderServiceImpl implements OrderService {
-	OrderDao dao;
+	OrderRepository dao;
 	@Autowired
-	public void setDao(OrderDao dao) {
+	public void setDao(OrderRepository dao) {
 		this.dao = dao;
 	}
 	
