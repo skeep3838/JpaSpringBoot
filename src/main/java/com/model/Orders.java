@@ -3,9 +3,7 @@ package com.model;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,6 +27,7 @@ public class Orders {
 	@JoinColumn(name="cid", nullable=false)
 	private Customer customer;
 	
+//	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
 	@OneToMany(mappedBy="orderMap")
 	@OrderBy("seq")
 	List<Itemline> orderDetail;

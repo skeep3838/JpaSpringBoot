@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -17,7 +16,7 @@ public class Itemline {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer seq;
 	private Integer qty;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="iid", nullable=false)
 	private Item item;
 	

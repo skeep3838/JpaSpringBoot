@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model.Customer;
 import com.model.Orders;
+import com.service.CustomerService;
 import com.service.ItemlineService;
 import com.service.OrderService;
 
@@ -42,14 +43,13 @@ public class ItemlineComtroller {
 
 	@GetMapping("/itemline/delete")
 	public String deleteItemInOrder(@RequestParam("seq") Integer seq, @RequestParam("oid") Integer oid, Model model) {
-//		Boolean delSeq = ilService.deleteItem(seq);
+		Boolean delSeq = ilService.deleteItem(seq);
 //		Itemline item = ilService.getItemlineBySeq(seq);
 
 		Customer customer = orderService.getOrderByOid(oid).getCustomer();
 //			此時刪掉最後一項，orderDetail不為null
-		if (orderService.getOrderByOid(oid).getOrderDetail().isEmpty() == true) {
+		if (orderService.getOrderByOid(oid).getOrderDetail().isEmpty()) {
 			orderService.deleteOrder(oid);
-//				Customer customer2 = oService.getOrderByOid(oid).getCustomer();
 			model.addAttribute("states", "訂單沒有商品，已刪除");
 			model.addAttribute("cid", customer.getCid());
 			model.addAttribute("cOrder", customer.getOrderList());
