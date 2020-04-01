@@ -3,6 +3,7 @@ package com.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,9 +29,9 @@ public class Orders {
 	private Customer customer;
 	
 //	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
-	@OneToMany(mappedBy="orderMap")
+	@OneToMany(mappedBy="orderMap", cascade=CascadeType.ALL)
 	@OrderBy("seq")
-	List<Itemline> orderDetail;
+	List<Itemline> orders;
 	
 	public Orders(Integer oid, Date createdate, Integer shipment, Customer customer) {
 		this.oid = oid;
@@ -44,7 +45,7 @@ public class Orders {
 		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
-		this.orderDetail = orderDetail;
+		this.orders = orderDetail;
 	}
 	
 	public Orders() {}
@@ -78,10 +79,10 @@ public class Orders {
 	}
 	
 	public void setOrderDetail(List<Itemline> orderDetail) {
-		this.orderDetail = orderDetail;
+		this.orders = orderDetail;
 	}
 	public List<Itemline> getOrderDetail() {
-		return orderDetail;
+		return orders;
 	}
 
 	

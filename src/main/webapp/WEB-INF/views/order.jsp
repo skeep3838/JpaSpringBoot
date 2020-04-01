@@ -33,6 +33,9 @@
 							<td><input style='float: right;' class='btn btn-primary'
 										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/itemline?oid=${bean.oid}'"
 										value='詳細資訊' />
+							<td><input style='float: right;' class='btn btn-danger'
+										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/items/deleteOrder?oid=${bean.oid}&cid=${cid}'"
+										value='刪除訂單' />
 							
 					</c:forEach>
 				</tbody>

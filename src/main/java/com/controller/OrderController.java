@@ -1,6 +1,5 @@
 package com.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -67,25 +66,38 @@ public class OrderController {
 	@PostMapping("/items")
 	public String addOrder(HttpServletRequest req, @RequestParam("cid") Integer cid, Model model) {
 		List<Item> itemList = itemService.getAllItem();
-		List<Itemline> itemline = new ArrayList<Itemline>();
-//			新增訂單明細
+//		List<Itemline> itemline = new ArrayList<Itemline>();
+		Orders order = new Orders(null, (new Date()), 30, customerService.queryCustomerById(cid));
+		Integer newOrder = orderService.addOrder(order);
+		// 新增訂單明細
 		for (Item i : itemList) {
 			String par = "qty" + i.getIid();
 			Integer qty = Integer.parseInt(req.getParameter(par));
 			if (qty == 0)
 				continue;
-//			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
-//			itemlineService.addOrderDetail(item);
-			Itemline item = new Itemline(null, i, qty,null);
-			itemline.add(item);
+			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
+			itemlineService.addOrderDetail(item);
+//			Itemline item = new Itemline(null, i, qty,null);
+//			itemline.add(item);
 		}
-
 //		先新增一筆訂單，取得最新訂單的Bean
-		Orders order = new Orders(null, (new Date()), 30, customerService.queryCustomerById(cid), itemline);
-		Integer newOrder = orderService.addOrder(order);
 		model.addAttribute("states", "訂購成功");
 		model.addAttribute("orderNo", newOrder);
 		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
 		return "orderDetail";
 	}
+
+//	刪除訂單------------------------------------------------------------
+	@GetMapping("/items/deleteOrder")
+	public String deleteOrder(@RequestParam("oid") Integer oid, 
+							@RequestParam("cid") Integer cid, Model model) {
+		orderService.deleteOrder(oid);
+		Customer cus = customerService.queryCustomerById(cid);
+		model.addAttribute("states", "刪除訂單成功");
+		model.addAttribute("cid", cid);
+		model.addAttribute("cOrder", cus.getOrderList());
+		return "redirect:/order?cid="+cid;
+		
+	}
+	
 }

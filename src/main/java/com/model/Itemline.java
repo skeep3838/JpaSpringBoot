@@ -1,5 +1,6 @@
 package com.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Itemline {
 	@JoinColumn(name="iid", nullable=false)
 	private Item item;
 	
-	@ManyToOne
+	@ManyToOne   
 	@JoinColumn(name="oid", nullable=false)
 	private Orders orderMap;
 	
