@@ -20,9 +20,8 @@ public class Itemline {
 	@JoinColumn(name = "iid", nullable = false)
 	private Item item;
 
-//	拿掉@JoinColumn(name="oid", nullable=false) 一樣會發生oid無法同時更新的情形
 	@ManyToOne(targetEntity = Orders.class, fetch = FetchType.LAZY)
-	@JoinColumn(name="oid", nullable=false)
+//	@JoinColumn(name="oid", nullable=false)
 	private Orders order;
 
 	public Itemline(Integer seq, Item item, Integer qty, Orders order) {

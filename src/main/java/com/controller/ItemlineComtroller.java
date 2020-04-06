@@ -1,14 +1,17 @@
 package com.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model.Customer;
+import com.model.Itemline;
 import com.model.Orders;
-import com.service.CustomerService;
 import com.service.ItemlineService;
 import com.service.OrderService;
 
@@ -38,7 +41,17 @@ public class ItemlineComtroller {
 		model.addAttribute("orderDetail", order.getOrderDetail());
 		return "orderDetail";
 	}
-
+	
+	//更新訂單明細的內容------------------------------------------------------
+	@PostMapping("/itemline")
+	public String updateItemline() {
+		
+		return null;
+		
+	}
+	
+	
+	
 	// ---------刪除訂單內商品----------------------------------------
 
 	@GetMapping("/itemline/delete")

@@ -65,27 +65,28 @@ public class OrderController {
 
 	// ----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")
-	public String addOrder(HttpServletRequest req, @RequestParam("cid") Integer cid, Model model) {
-		List<Item> itemList = itemService.getAllItem();
-		List<Itemline> itemline = new ArrayList<Itemline>();
+	public String addOrder(@RequestParam("cid") Integer cid, @RequestParam("orderDetail") String orderDetail, Model model) {
+//		List<Item> itemList = itemService.getAllItem();
+//		List<Itemline> itemline = new ArrayList<Itemline>();
 		
 		// 新增訂單明細
-		for (Item i : itemList) {
-			String par = "qty" + i.getIid();
-			Integer qty = Integer.parseInt(req.getParameter(par));
-			if (qty == 0)
-				continue;
-//			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
-//			itemlineService.addOrderDetail(item);
-			Itemline item = new Itemline(null, i, qty,null);
-			itemline.add(item);
-		}
-		Orders order = new Orders((new Date()), 30, customerService.queryCustomerById(cid),itemline);
-		Integer newOrder = orderService.addOrder(order);
+//		for (Item i : itemList) {
+//			String par = "qty" + i.getIid();
+//			Integer qty = Integer.parseInt(req.getParameter(par));
+//			if (qty == 0)
+//				continue;
+////			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
+////			itemlineService.addOrderDetail(item);
+//			Itemline item = new Itemline(null, i, qty,null);
+//			itemline.add(item);
+//		}
+//		Orders order = new Orders((new Date()), 30, customerService.queryCustomerById(cid),itemline);
+//		Integer newOrder = orderService.addOrder(order);
 //		先新增一筆訂單，取得最新訂單的Bean
-		model.addAttribute("states", "訂購成功");
-		model.addAttribute("orderNo", newOrder);
-		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
+//		model.addAttribute("states", "訂購成功");
+//		model.addAttribute("orderNo", newOrder);
+//		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
+		System.out.println(orderDetail);
 		return "orderDetail";
 	}
 
@@ -101,5 +102,6 @@ public class OrderController {
 		return "redirect:/order?cid="+cid;
 		
 	}
+	
 	
 }

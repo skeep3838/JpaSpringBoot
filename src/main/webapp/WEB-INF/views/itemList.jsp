@@ -18,7 +18,6 @@
 		<h3>客戶ID: ${cid}</h3>
 	
 		<div class="bs-docs-example div-height" align='center'>
-			<form method="post" action="${pageContext.request.contextPath}/items">
 				<table id='table1' class="table table-hover">
 					<thead>
 						<tr>
@@ -37,16 +36,27 @@
 								<td>${bean.iname}
 								<td>${bean.description}
 								<td>${bean.price}
-								<td><input type="number" class="form-control" id="qty${bean.iid}" name="qty${bean.iid}" value=0>			
+								<td><select class="custom-select" name="qty${bean.iid}"
+											id="${bean.iid}" onchange="getQty(${bean.iid})">								
+										<option value=0 disabled selected hidden>購買數量</option>
+										<c:forEach var="i" begin="1" end="${10}">
+											<option value="${i}">${i}</option>
+										</c:forEach>
+									</select>			
 						</c:forEach>
+						
 					</tbody>
 				</table>
+			<form method="post" action="${pageContext.request.contextPath}/items">
 				<input type="hidden" id="cid" name="cid" value="${cid}">
+				<input type="hidden" id="orderDetail" name="orderDetail" value="">
 	<!-- 			<input type="hidden" id="shopCa" name="shopCa" value=0> -->
 				<input type="submit" class="btn btn-outline-primary"  value="確定購買">	
 			</form>
 		</div>
 	</div>
+<!-- 	自己寫的JS -->
+<script src="${pageContext.request.contextPath}/js/itemlist.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
