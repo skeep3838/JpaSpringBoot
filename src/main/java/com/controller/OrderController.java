@@ -1,5 +1,6 @@
 package com.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -66,20 +67,21 @@ public class OrderController {
 	@PostMapping("/items")
 	public String addOrder(HttpServletRequest req, @RequestParam("cid") Integer cid, Model model) {
 		List<Item> itemList = itemService.getAllItem();
-//		List<Itemline> itemline = new ArrayList<Itemline>();
-		Orders order = new Orders(null, (new Date()), 30, customerService.queryCustomerById(cid));
-		Integer newOrder = orderService.addOrder(order);
+		List<Itemline> itemline = new ArrayList<Itemline>();
+		
 		// 新增訂單明細
 		for (Item i : itemList) {
 			String par = "qty" + i.getIid();
 			Integer qty = Integer.parseInt(req.getParameter(par));
 			if (qty == 0)
 				continue;
-			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
-			itemlineService.addOrderDetail(item);
-//			Itemline item = new Itemline(null, i, qty,null);
-//			itemline.add(item);
+//			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
+//			itemlineService.addOrderDetail(item);
+			Itemline item = new Itemline(null, i, qty,null);
+			itemline.add(item);
 		}
+		Orders order = new Orders((new Date()), 30, customerService.queryCustomerById(cid),itemline);
+		Integer newOrder = orderService.addOrder(order);
 //		先新增一筆訂單，取得最新訂單的Bean
 		model.addAttribute("states", "訂購成功");
 		model.addAttribute("orderNo", newOrder);

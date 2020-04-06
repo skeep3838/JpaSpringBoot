@@ -1,48 +1,40 @@
 package com.model;
 
-
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name = "itemline")
-@PrimaryKeyJoinColumn(referencedColumnName = "oid")
 public class Itemline {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer seq;
 	private Integer qty;
 	@ManyToOne
-	@JoinColumn(name="iid", nullable=false)
+	@JoinColumn(name = "iid", nullable = false)
 	private Item item;
-	
+
 //	拿掉@JoinColumn(name="oid", nullable=false) 一樣會發生oid無法同時更新的情形
-	@ManyToOne   
+	@ManyToOne(targetEntity = Orders.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="oid", nullable=false)
-	private Orders orderMap;
-	
-//	錯誤訊息
-//	@OneToOne or @ManyToOne on com.model.Itemline.oid references an unknown entity
-//	@ManyToOne
-//	@JoinColumn(name="oid", nullable=false)
-//	private Integer oid;
-	
-	public Itemline(Integer seq, Item item, Integer qty, Orders orderMap) {
+	private Orders order;
+
+	public Itemline(Integer seq, Item item, Integer qty, Orders order) {
 		super();
 		this.seq = seq;
 		this.item = item;
 		this.qty = qty;
-		this.orderMap = orderMap;
+		this.order = order;
 	}
-	
-	public Itemline() {}
+
+	public Itemline() {
+	}
 
 	public Integer getSeq() {
 		return seq;
@@ -69,15 +61,11 @@ public class Itemline {
 	}
 
 	public Orders getOrders() {
-		return orderMap;
+		return order;
 	}
 
 	public void setOrders(Orders orders) {
-		this.orderMap = orders;
+		this.order = orders;
 	}
-	
-	
 
-	
-	
 }

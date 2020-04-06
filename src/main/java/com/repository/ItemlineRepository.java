@@ -9,6 +9,6 @@ import com.model.Orders;
 
 
 public interface ItemlineRepository extends JpaRepository<Itemline, Integer>{
-	List<Itemline> findByOrderMap(Orders order);
+	List<Itemline> findByOrder(Orders order);
 	Itemline findBySeq(Integer seq);
 }

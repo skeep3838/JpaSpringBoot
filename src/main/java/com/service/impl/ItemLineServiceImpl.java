@@ -21,7 +21,8 @@ public class ItemLineServiceImpl implements ItemlineService {
 	}
 	@Override
 	public List<Itemline> getOrderDetailByOrder(Orders order) {
-		return dao.findByOrderMap(order);
+		return dao.findByOrder(order);
+//		return null;
 	}
 	@Override
 	public void addOrderDetail(Itemline orderList) {
