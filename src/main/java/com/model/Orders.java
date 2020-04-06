@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "orders")
+@Inheritance(strategy = InheritanceType.JOINED)
 //@NamedQuery(query="SELECT MAX(oid) FROM Orders", name="Orders.newOrderId")
 public class Orders {
 	@Id
@@ -29,6 +32,7 @@ public class Orders {
 	private Customer customer;
 	
 //	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
+//	mappedBy="orderMap",  => 在Itemline 找到對應的 private Orders orderMap
 	@OneToMany(mappedBy="orderMap", cascade=CascadeType.ALL)
 	@OrderBy("seq")
 	List<Itemline> orders;

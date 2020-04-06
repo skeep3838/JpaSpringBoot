@@ -7,11 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "itemline")
+@PrimaryKeyJoinColumn(referencedColumnName = "oid")
 public class Itemline {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class Itemline {
 	@JoinColumn(name="iid", nullable=false)
 	private Item item;
 	
+//	拿掉@JoinColumn(name="oid", nullable=false) 一樣會發生oid無法同時更新的情形
 	@ManyToOne   
 	@JoinColumn(name="oid", nullable=false)
 	private Orders orderMap;
