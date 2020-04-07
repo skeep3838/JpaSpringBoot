@@ -1,5 +1,18 @@
 var item = [];
 
+function pagePoint(page){	
+	$.ajax({
+		type: "GET",
+		url: ("items/page/"+page),
+		success: function (data) {
+			var page2=data;
+			alert("ajax: "+page2);
+		}
+	});
+}
+
+
+//選擇購買商品-------------------------------------------------------
 function getQty(id) {
 	
 	// 判斷onchange的商品是否新增過
