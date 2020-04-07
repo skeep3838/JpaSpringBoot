@@ -30,7 +30,7 @@
 					<c:forEach varStatus="i" var="bean" items="${orderDetail}">
 						<tr>
 							<td>${bean.item.iname}
-							<td>${bean.item.description}
+							<td>${bean.item.type}
 							<td>${bean.item.price}
 							<td>${bean.qty}
 							<td><input style='float: right;' class='btn btn-danger'

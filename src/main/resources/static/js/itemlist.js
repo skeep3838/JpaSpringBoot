@@ -1,15 +1,16 @@
 var item = [];
 
-function pagePoint(page){	
-	$.ajax({
-		type: "GET",
-		url: ("items/page/"+page),
-		success: function (data) {
-			var page2=data;
-			alert("ajax: "+page2);
-		}
-	});
-}
+//function pagePoint(page){	
+//	$.ajax({
+//		type: "GET",
+//		url: ("items/page/"+page),
+//		success: function (data) {
+//			var itemJson=data;
+//			$("#mainTable").
+//			alert("ajax: "+itemJson);
+//		}
+//	});
+//}
 
 
 //選擇購買商品-------------------------------------------------------
@@ -38,6 +39,7 @@ function getQty(id) {
 $("form").submit(function() {
 	var jsonString = JSON.stringify(item);
 	$("#orderDetail").val(jsonString);
-	alert($("#orderDetail").val());
+//	alert($("#orderDetail").val());
+	item=[];
 	return;
 });

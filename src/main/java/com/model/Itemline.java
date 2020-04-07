@@ -20,7 +20,7 @@ public class Itemline {
 	@JoinColumn(name = "iid", nullable = false)
 	private Item item;
 
-	@ManyToOne(targetEntity = Orders.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Orders.class)
 	@JoinColumn(name="oid", nullable=false)
 	private Orders order;
 

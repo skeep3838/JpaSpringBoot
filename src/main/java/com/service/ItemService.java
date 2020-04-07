@@ -11,4 +11,5 @@ import com.model.Item;
 @Service
 public interface ItemService {
 	Page<Item> getAllItem(Integer page);
+	Item getItemById(Integer iid);
 }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Item;
 import com.service.ItemService;
 
@@ -39,11 +41,13 @@ public class ItemController {
 	
 	@GetMapping(value = "/items/page/{page}",produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public String getItemPage(@PathVariable("page") Integer page,Model model) {
+	public String getItemPage(@PathVariable("page") Integer page,Model model) throws JsonProcessingException {
 		Page<Item> itemPage = sService.getAllItem(page);
-		System.out.println("page: "+page+"---------------------------------");
+		ObjectMapper objectMapper = new ObjectMapper();
+		String pageJson = objectMapper.writeValueAsString(itemPage.getContent());
+		System.out.println(pageJson);
 		
-		return page2;
+		return pageJson;
 	}
 	
 	

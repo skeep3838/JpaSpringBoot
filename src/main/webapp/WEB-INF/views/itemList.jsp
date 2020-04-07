@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>會員列表</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
@@ -62,7 +63,7 @@
 				    <li class="page-item"><a class="page-link" href="#">上一頁</a></li>
 				    <c:forEach var="i" begin="1" end="${totalPages}">
 				    	 <li class="page-item">
-				    	 	<a class="page-link" href='javascript:void(0)' onclick="pagePoint(${i})">${i}</a>
+				    	 	<a class="page-link" href='${pageContext.request.contextPath}/items?cid=${cid}&page=${i-1}'>${i}</a>
 				    	 </li>
 					</c:forEach>
 				    <li class="page-item"><a class="page-link" href="#">下一頁</a></li>
@@ -79,10 +80,8 @@
 	</div>
 <!-- 	自己寫的JS -->
 <script src="${pageContext.request.contextPath}/js/itemlist.js"></script>
-<!-- 要用ajax藥用拿掉slim的版本 -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
 </body>
 </html>

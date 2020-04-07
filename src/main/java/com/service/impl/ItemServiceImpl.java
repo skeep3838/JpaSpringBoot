@@ -1,6 +1,8 @@
 package com.service.impl;
 
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,10 @@ public class ItemServiceImpl implements ItemService {
 //			System.out.println(i.getIname());
 //		}
 		return item;
+	}
+	@Override
+	public Item getItemById(Integer iid) {		
+		return dao.findByIid(iid);
 	}
 
 

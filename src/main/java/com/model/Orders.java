@@ -32,7 +32,7 @@ public class Orders {
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="oid")
 	@OrderBy("seq")
-	private List<Itemline> orderDetail = new ArrayList<Itemline>();
+	private List<Itemline> orderDetail;
 
 	public Orders(Date createdate, Integer shipment, Customer customer) {
 		this.createdate = createdate;

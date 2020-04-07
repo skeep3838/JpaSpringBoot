@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Customer;
-import com.model.Item;
 import com.model.Itemline;
 import com.model.Orders;
+import com.model.obJson;
 import com.service.CustomerService;
 import com.service.ItemService;
 import com.service.ItemlineService;
@@ -65,28 +66,33 @@ public class OrderController {
 
 	// ----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")
-	public String addOrder(@RequestParam("cid") Integer cid, @RequestParam("orderDetail") String orderDetail, Model model) {
-//		List<Item> itemList = itemService.getAllItem();
-//		List<Itemline> itemline = new ArrayList<Itemline>();
-		
-		// 新增訂單明細
-//		for (Item i : itemList) {
-//			String par = "qty" + i.getIid();
-//			Integer qty = Integer.parseInt(req.getParameter(par));
-//			if (qty == 0)
-//				continue;
-////			Itemline item = new Itemline(null, i, qty, orderService.getOrderByOid(newOrder));
-////			itemlineService.addOrderDetail(item);
-//			Itemline item = new Itemline(null, i, qty,null);
-//			itemline.add(item);
-//		}
-//		Orders order = new Orders((new Date()), 30, customerService.queryCustomerById(cid),itemline);
-//		Integer newOrder = orderService.addOrder(order);
-//		先新增一筆訂單，取得最新訂單的Bean
-//		model.addAttribute("states", "訂購成功");
-//		model.addAttribute("orderNo", newOrder);
-//		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
+	public String addOrder(@RequestParam("cid") Integer cid, 
+			@RequestParam("orderDetail") String orderDetail, Model model) {
 		System.out.println(orderDetail);
+		List<Itemline> itemline = new ArrayList<Itemline>();
+//		把傳回來orderDetail的json字串轉為Object
+		List<obJson> obJson = new ArrayList<obJson>();
+		ObjectMapper objectMapper = new ObjectMapper();
+		try {
+			obJson = objectMapper.readValue(orderDetail, new TypeReference<List<obJson>>(){});
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			System.out.println("orderDetail 回傳規格不符");
+		}
+		
+//		把轉好的物件塞進Itemline裡面
+		for(obJson i:obJson) {
+			Itemline item = new Itemline(null, itemService.getItemById(i.getIid()), i.getQty(),null);
+			itemline.add(item);
+		}
+//		新增訂單	
+		Orders order = new Orders((new Date()), 47, customerService.queryCustomerById(cid),itemline);
+		Integer newOrder = orderService.addOrder(order);
+//		秀出最新的訂單明細
+		model.addAttribute("states", "訂購成功");
+		model.addAttribute("orderNo", newOrder);
+		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
+		
 		return "orderDetail";
 	}
 
