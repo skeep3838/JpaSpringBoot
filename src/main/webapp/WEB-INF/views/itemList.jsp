@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
@@ -16,14 +17,22 @@
 	<div class="container">
 		<h2>商品列表</h2>
 		<h3>客戶ID: ${cid}</h3>
-	
+<!-- 		<select class="custom-select" style="width:30%">								 -->
+<!-- 			<option value=0 disabled selected hidden>選擇排序項目</option> -->
+<!-- 			<option value="iid" >商品編碼</option>	 -->
+<!-- 			<option value="iname" >商品名稱</option> -->
+<!-- 			<option value="type" >商品種類</option> -->
+<!-- 			<option value="price" >商品價格</option>	 -->
+<!-- 			<option value="lifedate" >保存期限</option>							 -->
+<!-- 		</select>	 -->
 		<div class="bs-docs-example div-height" align='center'>
 				<table id='table1' class="table table-hover">
 					<thead>
 						<tr>
 							<th>商品編碼</th>
 							<th>商品名稱</th>
-							<th>商品描述</th>
+							<th>商品種類</th>
+							<th>保存期限</th>
 							<th>商品價格</th>
 							<th>購買數量</th>
 							<th></th>
@@ -34,7 +43,8 @@
 							<tr>
 								<td>${bean.iid}
 								<td>${bean.iname}
-								<td>${bean.description}
+								<td>${bean.type}
+								<td><fmt:formatDate value="${bean.lifedate}" pattern="YYYY-MM-dd" />
 								<td>${bean.price}
 								<td><select class="custom-select" name="qty${bean.iid}"
 											id="${bean.iid}" onchange="getQty(${bean.iid})">								
@@ -47,12 +57,23 @@
 						
 					</tbody>
 				</table>
-			<form method="post" action="${pageContext.request.contextPath}/items">
-				<input type="hidden" id="cid" name="cid" value="${cid}">
-				<input type="hidden" id="orderDetail" name="orderDetail" value="">
-	<!-- 			<input type="hidden" id="shopCa" name="shopCa" value=0> -->
-				<input type="submit" class="btn btn-outline-primary"  value="確定購買">	
-			</form>
+			<div class="container">
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li class="page-item"><a class="page-link" href="#">上一頁</a></li>
+				    <c:forEach var="i" begin="1" end="${totalPages}">
+				    	 <li class="page-item"><a class="page-link" href="#">${i}</a></li>
+					</c:forEach>
+				    <li class="page-item"><a class="page-link" href="#">下一頁</a></li>
+				  </ul>
+				</nav>
+				<form method="post" action="${pageContext.request.contextPath}/items">
+					<input type="hidden" id="cid" name="cid" value="${cid}">
+					<input type="hidden" id="orderDetail" name="orderDetail" value="">
+		<!-- 			<input type="hidden" id="shopCa" name="shopCa" value=0> -->
+					<input type="submit" class="btn btn-outline-primary"  value="確定購買">	
+				</form>
+			</div>
 		</div>
 	</div>
 <!-- 	自己寫的JS -->

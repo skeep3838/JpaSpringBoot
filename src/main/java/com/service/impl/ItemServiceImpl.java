@@ -1,10 +1,13 @@
 package com.service.impl;
 
-import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.model.Item;
@@ -19,8 +22,18 @@ public class ItemServiceImpl implements ItemService {
 		this.dao = dao;
 	}
 	@Override
-	public List<Item> getAllItem() {
-		return dao.findAll();
+	public Page<Item> getAllItem(Integer page) {
+//		Sort sort = Sort.by("iid").ascending();
+//		Sort sort = Sort.by("iid").descending();
+		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC,"iid");
+		Page<Item> item = dao.findAll(pageable);
+		
+//		System.out.println("全部筆數: "+item.getTotalElements());
+//		System.out.println("總頁數: "+item.getTotalPages());
+//		for(Item i:item.getContent()) {
+//			System.out.println(i.getIname());
+//		}
+		return item;
 	}
 
 

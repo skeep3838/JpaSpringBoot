@@ -30,7 +30,7 @@ public class Orders {
 //	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
 //	mappedBy="orderMap",  => 在Itemline 找到對應的 private Orders orderMap
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="order_oid")
+	@JoinColumn(name="oid")
 	@OrderBy("seq")
 	private List<Itemline> orderDetail = new ArrayList<Itemline>();
 

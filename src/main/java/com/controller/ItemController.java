@@ -1,8 +1,10 @@
 package com.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +24,13 @@ public class ItemController {
 
 	// -------------商品清單------------------------------------------------------------------
 	@GetMapping("/items")
-	public String getItemList(@RequestParam("cid") Integer cid, Model model) {
-		List<Item> itemList = sService.getAllItem();
+	public String getItemList(@RequestParam("cid") Integer cid,Model model) {
+		Integer page = 1;
+		System.out.println("page: "+page+"---------------------------------");
+		Page<Item> itemPage = sService.getAllItem(page);
 		model.addAttribute("cid", cid);
-		model.addAttribute("itemList", itemList);
+		model.addAttribute("itemList", itemPage.getContent());
+		model.addAttribute("totalPages", itemPage.getTotalPages());
 		return "itemList";
 	}
 }

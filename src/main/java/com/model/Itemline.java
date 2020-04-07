@@ -21,7 +21,7 @@ public class Itemline {
 	private Item item;
 
 	@ManyToOne(targetEntity = Orders.class, fetch = FetchType.LAZY)
-//	@JoinColumn(name="oid", nullable=false)
+	@JoinColumn(name="oid", nullable=false)
 	private Orders order;
 
 	public Itemline(Integer seq, Item item, Integer qty, Orders order) {

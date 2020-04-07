@@ -1,9 +1,8 @@
 package com.service;
 
-import java.util.List;
-
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.model.Item;
@@ -11,5 +10,5 @@ import com.model.Item;
 @Transactional
 @Service
 public interface ItemService {
-	List<Item> getAllItem();
+	Page<Item> getAllItem(Integer page);
 }

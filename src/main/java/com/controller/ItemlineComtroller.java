@@ -40,12 +40,12 @@ public class ItemlineComtroller {
 	}
 	
 	//更新訂單明細的內容------------------------------------------------------
-	@PostMapping("/itemline")
-	public String updateItemline() {
-		
-		return null;
-		
-	}
+//	@PostMapping("/itemline")
+//	public String updateItemline() {
+//		
+//		return null;
+//		
+//	}
 	
 	
 	

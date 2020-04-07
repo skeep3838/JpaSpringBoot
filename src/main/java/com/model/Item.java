@@ -1,5 +1,7 @@
 package com.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +15,15 @@ public class Item {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int iid;
 	private String iname;
-	private String description;
-	private int price;
+	private String type;
+	private Integer price;
+	private Date lifedate;
+	
 
-	public Item(int iid, String iname, String description, int price) {
+	public Item(int iid, String iname, String type, int price) {
 		this.iid = iid;
 		this.iname = iname;
-		this.description = description;
+		this.type = type;
 		this.price = price;
 	}
 	public Item() {}
@@ -35,17 +39,23 @@ public class Item {
 	public void setIname(String iname) {
 		this.iname = iname;
 	}
-	public String getDescription() {
-		return description;
+	public String getType() {
+		return type;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setType(String type) {
+		this.type = type;
 	}
 	public int getPrice() {
 		return price;
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public Date getLifedate() {
+		return lifedate;
+	}
+	public void setLifedate(Date lifedate) {
+		this.lifedate = lifedate;
 	}
 	
 	
