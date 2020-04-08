@@ -12,6 +12,17 @@ var item = [];
 //	});
 //}
 
+function itemCount(){	
+	var price = document.getElementById("price").value;
+	$.ajax({
+	type: "GET",
+	url: ("items/"+price),
+	success: function (data) {
+		var itemCountN=data;
+		alert("itemCount: "+itemCountN);
+	}
+});
+}
 
 //選擇購買商品-------------------------------------------------------
 function getQty(id) {
