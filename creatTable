@@ -1,0 +1,47 @@
+rop table itemline;
+drop table orders;
+drop table item;
+drop table customer;
+
+CREATE TABLE customer(
+	cid int IDENTITY(1,1) NOT NULL,
+	cname nvarchar(10) NOT NULL,
+	password nvarchar(10) NULL);
+
+CREATE TABLE item(
+	iid int IDENTITY(1,1) NOT NULL,
+	iname nvarchar(10) NOT NULL,
+	type nvarchar(10) NULL,
+        price int NOT NULL,
+        lifedate date NULL);
+        
+CREATE TABLE itemline(
+	seq int IDENTITY(1,1) NOT NULL,
+	qty int NOT NULL,
+	iid int NOT NULL,
+    oid int NOT NULL);
+        
+CREATE TABLE orders(
+	oid int IDENTITY(1,1) NOT NULL,
+	createdate datetime2(7) NULL,
+	shipment int NULL,
+    cid int NOT NULL);
+    
+INSERT INTO customer (cname,password) VALUES ('使用者1號', '12345');
+INSERT INTO customer (cname,password) VALUES ('使用者2號', '12345');
+
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果1', 90, CAST(N'2020-09-09' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果2', 70, CAST(N'2020-10-10' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果3', 60, CAST(N'2020-06-06' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果4', 45, CAST(N'2020-07-07' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果5', 80, CAST(N'2020-05-05' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬1', 100, CAST(N'2020-06-06' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬2', 120, CAST(N'2020-07-15' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬3', 90, CAST(N'2020-08-24' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬4', 180, CAST(N'2020-07-23' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬5', 150, CAST(N'2020-09-01' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜1', 20, CAST(N'2020-05-05' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜2', 60, CAST(N'2020-06-15' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜3', 40, CAST(N'2020-05-30' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜4', 50, CAST(N'2020-06-01' AS Date));
+INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜5', 70, CAST(N'2020-05-12' AS Date));

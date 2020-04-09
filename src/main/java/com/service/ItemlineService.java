@@ -10,4 +10,5 @@ public interface ItemlineService {
 	Itemline getItemlineBySeq(Integer seq);
 	void addOrderDetail(Itemline orderList);
 	Boolean deleteItem(Integer seq);
+	void updateItemQty(Integer seq, Integer qty);
 }

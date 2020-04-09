@@ -44,5 +44,9 @@ public class ItemLineServiceImpl implements ItemlineService {
 		Itemline item = dao.findBySeq(seq);
 		return item;
 	}
+	@Override
+	public void updateItemQty(Integer seq, Integer qty) {
+		dao.updateItemQty(seq, qty);
+	}
 
 }

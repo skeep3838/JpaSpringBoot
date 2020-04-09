@@ -1,8 +1,6 @@
 package com.service.impl;
 
 
-import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -42,11 +40,7 @@ public class ItemServiceImpl implements ItemService {
 	public Item getItemById(Integer iid) {		
 		return dao.findByIid(iid);
 	}
-	@Override
-	public Integer priceRangeList(Integer price) {
-		
-		return dao.priceRangeList(price);
-	}
+
 
 
 }

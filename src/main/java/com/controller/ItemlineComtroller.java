@@ -4,21 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model.Customer;
 import com.model.Orders;
-import com.service.CustomerService;
 import com.service.ItemlineService;
 import com.service.OrderService;
 
 @Controller
 public class ItemlineComtroller {
-	ItemlineService ilService;
+	ItemlineService itemlineService;
 
 	@Autowired
-	public void setilService(ItemlineService ilService) {
-		this.ilService = ilService;
+	public void setilService(ItemlineService itemlineService) {
+		this.itemlineService = itemlineService;
 	}
 
 	OrderService orderService;
@@ -40,20 +40,20 @@ public class ItemlineComtroller {
 	}
 	
 	//更新訂單明細的內容------------------------------------------------------
-//	@PostMapping("/itemline")
-//	public String updateItemline() {
-//		
-//		return null;
-//		
-//	}
 	
-	
+	@PostMapping("/itemline/update")
+	public String updateItemline(@RequestParam("seq") Integer seq, @RequestParam("qty") Integer qty, Model model) {
+		itemlineService.updateItemQty(seq, qty);
+		Integer oid = itemlineService.getItemlineBySeq(seq).getOrders().getOid();
+		return "redirect:/itemline?oid=" + oid;
+		
+	}
 	
 	// ---------刪除訂單內商品----------------------------------------
 
 	@GetMapping("/itemline/delete")
 	public String deleteItemInOrder(@RequestParam("seq") Integer seq, @RequestParam("oid") Integer oid, Model model) {
-		Boolean delSeq = ilService.deleteItem(seq);
+		Boolean delSeq = itemlineService.deleteItem(seq);
 //		Itemline item = ilService.getItemlineBySeq(seq);
 
 		Customer customer = orderService.getOrderByOid(oid).getCustomer();

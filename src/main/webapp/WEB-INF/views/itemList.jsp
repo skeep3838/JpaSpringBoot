@@ -25,13 +25,13 @@
 <!-- 			<option value="price" >商品價格</option>	 -->
 <!-- 			<option value="lifedate" >保存期限</option>							 -->
 <!-- 		</select>	 -->
-		<div class="input-group mb-3 col-6">
-			<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品" 
-			  		aria-describedby="button-addon2" id="price">
-			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" onclick="itemCount()" id="button-addon2">Button</button>
-			</div>
-		</div>
+<!-- 		<div class="input-group mb-3 col-6"> -->
+<!-- 			<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品"  -->
+<!-- 			  		aria-describedby="button-addon2" id="price"> -->
+<!-- 			<div class="input-group-append"> -->
+<!-- 				<button class="btn btn-outline-secondary" onclick="itemCount()" id="button-addon2">Button</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		<div class="bs-docs-example div-height" align='center'>
 				<table id='table1' class="table table-hover">
 					<thead>

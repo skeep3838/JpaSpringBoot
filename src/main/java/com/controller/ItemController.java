@@ -49,12 +49,5 @@ public class ItemController {
 		return pageJson;
 	}
 
-	@GetMapping("items/{price}")
-	public Integer getItemListByPrice(@PathVariable("price") Integer price,
-			Model model) {
-		Integer itemCount = itemService.priceRangeList(price);
-		return itemCount;
-
-	}
 
 }
