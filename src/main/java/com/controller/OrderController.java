@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.model.Customer;
+import com.model.Item;
 import com.model.Itemline;
 import com.model.Orders;
 import com.model.obJson;
@@ -53,8 +55,7 @@ public class OrderController {
 		this.customerService = customerService;
 	}
 
-	// ------------依客戶列表查詢訂單內容----------------------------------
-
+// ------------依客戶列表查詢訂單內容----------------------------------
 	@GetMapping("/order")
 	public String getOrderById(@RequestParam("cid") Integer cid, Model model) {
 		Customer cus = customerService.queryCustomerById(cid);
@@ -64,50 +65,74 @@ public class OrderController {
 		return "order";
 	}
 
-	// ----------------新增訂單----------------------------------------------------------------
+// -------------商品清單------------------------------------------------------------------
+	@GetMapping("/items")
+	public String getItemList(@RequestParam("cid") Integer cid, @RequestParam("page") Integer page, Model model) {
+//			Integer page = 1;
+
+		Page<Item> itemPage = itemService.getAllItem(page);
+		model.addAttribute("cid", cid);
+		model.addAttribute("itemList", itemPage.getContent());
+		model.addAttribute("totalPages", itemPage.getTotalPages());
+		return "itemList";
+	}
+
+// ----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")
-	public String addOrder(@RequestParam("cid") Integer cid, 
-			@RequestParam("orderDetail") String orderDetail, Model model) {
+	public String addOrder(@RequestParam("cid") Integer cid, @RequestParam("orderDetail") String orderDetail,
+			Model model) {
 		System.out.println(orderDetail);
 		List<Itemline> itemline = new ArrayList<Itemline>();
 //		把傳回來orderDetail的json字串轉為Object
 		List<obJson> obJson = new ArrayList<obJson>();
+//		轉jsonArray所需的物件，並對 orderDetail 做轉換
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
-			obJson = objectMapper.readValue(orderDetail, new TypeReference<List<obJson>>(){});
+			obJson = objectMapper.readValue(orderDetail, new TypeReference<List<obJson>>() {
+			});
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 			System.out.println("orderDetail 回傳規格不符");
 		}
-		
+
 //		把轉好的物件塞進Itemline裡面
-		for(obJson i:obJson) {
-			Itemline item = new Itemline(null, itemService.getItemById(i.getIid()), i.getQty(),null);
+		for (obJson i : obJson) {
+			Itemline item = new Itemline(null, itemService.getItemById(i.getIid()), i.getQty(), null);
 			itemline.add(item);
 		}
 //		新增訂單	
-		Orders order = new Orders((new Date()), 47, customerService.queryCustomerById(cid),itemline);
+		Orders order = new Orders((new Date()), 47, customerService.queryCustomerById(cid), itemline);
 		Integer newOrder = orderService.addOrder(order);
 //		秀出最新的訂單明細
 		model.addAttribute("states", "訂購成功");
 		model.addAttribute("orderNo", newOrder);
 		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
-		
+
 		return "orderDetail";
 	}
 
-//	刪除訂單------------------------------------------------------------
+//	----------刪除訂單------------------------------------------------------------
 	@GetMapping("/items/deleteOrder")
-	public String deleteOrder(@RequestParam("oid") Integer oid, 
-							@RequestParam("cid") Integer cid, Model model) {
+	public String deleteOrder(@RequestParam("oid") Integer oid, @RequestParam("cid") Integer cid, Model model) {
 		orderService.deleteOrder(oid);
 		Customer cus = customerService.queryCustomerById(cid);
 		model.addAttribute("states", "刪除訂單成功");
 		model.addAttribute("cid", cid);
 		model.addAttribute("cOrder", cus.getOrderList());
-		return "redirect:/order?cid="+cid;
-		
+		return "redirect:/order?cid=" + cid;
+
 	}
 	
-	
+// -------------商品清單------------------------------------------------------------------
+//		@GetMapping("/items")
+//		public String getItemOrderList(@RequestParam("cid") Integer cid, @RequestParam("page") Integer page, Model model) {
+////			Integer page = 1;
+//
+//			Page<Item> itemPage = itemService.getAllItem(page);
+//			model.addAttribute("cid", cid);
+//			model.addAttribute("itemList", itemPage.getContent());
+//			model.addAttribute("totalPages", itemPage.getTotalPages());
+//			return "itemList";
+//		}
+
 }
