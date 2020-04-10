@@ -7,14 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>會員訂單明細</title>
-
+<link href="${pageContext.request.contextPath}/css/body.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
 
 	<div class="container">
 		<h2>${states}</h2>
-		<h3>訂單編號: ${orderNo}</h3>
+		<div class="row justify-content-between">
+			<h3 class="col-4">訂單編號: ${orderNo}</h3>
+			<a href=<c:url value='/' /> class="col-2 btn btn-link">返回客戶列表</a>
+		</div>
 		<div class="bs-docs-example div-height" align='center'>
 			<table id='table1' class="table table-hover">
 				<thead>

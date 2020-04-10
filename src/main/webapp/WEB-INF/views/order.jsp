@@ -7,13 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>會員訂單列表</title>
-
+<link href="${pageContext.request.contextPath}/css/body.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
 		<h2>${states}</h2>
-		<h3>會員ID: ${cid}</h3>
+		<div class="row justify-content-between">
+			<h3 class="col-4">客戶ID: ${cid}</h3>
+			<a href=<c:url value='/' /> class="col-2 btn btn-link">返回客戶列表</a>
+		</div>
 		<div class="bs-docs-example div-height" align='center'>
 			<table id='table1' class="table table-hover">
 				<thead>
@@ -21,6 +24,7 @@
 						<th>訂單編號</th>
 						<th>訂購日期</th>
 						<th>運費</th>
+						<th></th>
 						<th></th>
 					</tr>
 				</thead>

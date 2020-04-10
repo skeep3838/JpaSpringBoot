@@ -11,12 +11,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link href="${pageContext.request.contextPath}/css/body.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
 	<div class="container">
 		<h2>商品列表</h2>
-		<h3>客戶ID: ${cid}</h3>
+		<div class="row justify-content-between">
+			<h3 class="col-4">客戶ID: ${cid}</h3>
+			<a href=<c:url value='/' /> class="col-2 btn btn-link">返回客戶列表</a>
+		</div>
 <!-- 		<select class="custom-select" style="width:30%">								 -->
 <!-- 			<option value=0 disabled selected hidden>選擇排序項目</option> -->
 <!-- 			<option value="iid" >商品編碼</option>	 -->
@@ -80,7 +84,7 @@
 					<input type="hidden" id="cid" name="cid" value="${cid}">
 					<input type="hidden" id="orderDetail" name="orderDetail" value="">
 		<!-- 			<input type="hidden" id="shopCa" name="shopCa" value=0> -->
-					<input type="submit" class="btn btn-outline-primary"  value="確定購買">	
+					<input type="submit" class="btn btn-primary"  value="確定購買">	
 				</form>
 			</div>
 		</div>
