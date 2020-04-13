@@ -41,7 +41,7 @@ public class ItemServiceImpl implements ItemService {
 		return dao.findByIid(iid);
 	}
 	@Override
-	public Integer priceRangeEntity(Integer price_in) {
+	public String priceRangeEntity(Integer price_in) {
 		return dao.priceRangeEntity(price_in);
 	}
 

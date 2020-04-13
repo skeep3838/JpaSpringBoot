@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -127,8 +128,9 @@ public class OrderController {
 	// 查詢高於價格的商品筆數------------------------------------------------------
 
 	@GetMapping("/item/price/{price}")
-	public Integer priceRangeItemCount(@PathVariable Integer price, Model model) {
-		Integer itemCount = itemService.priceRangeEntity(price);
+	@ResponseBody
+	public String priceRangeItemCount(@PathVariable Integer price, Model model) {
+		String itemCount = itemService.priceRangeEntity(price);
 		return itemCount;
 
 	}

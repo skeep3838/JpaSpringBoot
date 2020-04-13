@@ -12,5 +12,5 @@ import com.model.Item;
 public interface ItemService {
 	Page<Item> getAllItem(Integer page,String sortItem);
 	Item getItemById(Integer iid);
-	Integer priceRangeEntity(Integer price_in);
+	String priceRangeEntity(Integer price_in);
 }

@@ -8,7 +8,7 @@ import com.model.Item;
 
 public interface ItemRepository extends JpaRepository<Item, Integer>{
 	Item findByIid(Integer iid);
-	@Procedure("priceRange")
-	Integer priceRangeEntity(Integer price_in);
+	@Procedure(procedureName = "priceRange", outputParameterName = "countRow_out")
+	String priceRangeEntity(Integer price_in);
 }
 

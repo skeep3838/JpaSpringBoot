@@ -20,8 +20,7 @@ function itemCount(){
 	url: ("/item/price/"+price),
 	success: function (data) {
 		var itemCountN=data;
-		$("#showCount").val(itemCountN);
-		alert("itemCount: "+itemCountN);
+		$("#showCount").html("<h4>共"+itemCountN+" 筆商品大於"+price+"元</h4>");
 	}
 });
 }
