@@ -23,10 +23,10 @@ public class ItemServiceImpl implements ItemService {
 		this.dao = dao;
 	}
 	@Override
-	public Page<Item> getAllItem(Integer page) {
+	public Page<Item> getAllItem(Integer page,String sortItem) {
 //		Sort sort = Sort.by("iid").ascending();
 //		Sort sort = Sort.by("iid").descending();
-		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.DESC,"iid");
+		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.ASC,sortItem);
 		Page<Item> item = dao.findAll(pageable);
 		
 //		System.out.println("全部筆數: "+item.getTotalElements());
@@ -39,6 +39,10 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Item getItemById(Integer iid) {		
 		return dao.findByIid(iid);
+	}
+	@Override
+	public Integer priceRangeEntity(Integer price_in) {
+		return dao.priceRangeEntity(price_in);
 	}
 
 

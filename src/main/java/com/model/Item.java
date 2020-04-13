@@ -6,10 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "item")
+@NamedStoredProcedureQuery(name = "priceRange", 
+procedureName = "priceRange", parameters = {
+  @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class),
+  @StoredProcedureParameter(mode = ParameterMode.INOUT, name = "countRow_out", type = Integer.class)})
 public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

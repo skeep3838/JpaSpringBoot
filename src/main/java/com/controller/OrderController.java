@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,13 +68,13 @@ public class OrderController {
 
 // -------------商品清單------------------------------------------------------------------
 	@GetMapping("/items")
-	public String getItemList(@RequestParam("cid") Integer cid, @RequestParam("page") Integer page, Model model) {
-//			Integer page = 1;
-
-		Page<Item> itemPage = itemService.getAllItem(page);
+	public String getItemList(@RequestParam("cid") Integer cid, @RequestParam("page") Integer page,
+			@RequestParam("sortItem") String sortItem, Model model) {
+		Page<Item> itemPage = itemService.getAllItem(page, sortItem);
 		model.addAttribute("cid", cid);
 		model.addAttribute("itemList", itemPage.getContent());
 		model.addAttribute("totalPages", itemPage.getTotalPages());
+		model.addAttribute("sortItem", sortItem);
 		return "itemList";
 	}
 
@@ -122,7 +123,16 @@ public class OrderController {
 		return "redirect:/order?cid=" + cid;
 
 	}
-	
+
+	// 查詢高於價格的商品筆數------------------------------------------------------
+
+	@GetMapping("/item/price/{price}")
+	public Integer priceRangeItemCount(@PathVariable Integer price, Model model) {
+		Integer itemCount = itemService.priceRangeEntity(price);
+		return itemCount;
+
+	}
+
 // -------------商品清單------------------------------------------------------------------
 //		@GetMapping("/items")
 //		public String getItemOrderList(@RequestParam("cid") Integer cid, @RequestParam("page") Integer page, Model model) {

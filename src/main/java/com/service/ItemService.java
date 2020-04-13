@@ -10,6 +10,7 @@ import com.model.Item;
 @Transactional
 @Service
 public interface ItemService {
-	Page<Item> getAllItem(Integer page);
+	Page<Item> getAllItem(Integer page,String sortItem);
 	Item getItemById(Integer iid);
+	Integer priceRangeEntity(Integer price_in);
 }

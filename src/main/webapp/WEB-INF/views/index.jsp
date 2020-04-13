@@ -30,7 +30,7 @@
 							<td>${bean.cid}
 							<td>${bean.cname}
 							<td><input style='float: right;' class='btn btn-primary'
-										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/items?cid=${bean.cid}&page=0'"
+										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/items?cid=${bean.cid}&sortItem=lifedate&page=0'"
 										value='商品清單' />
 							<td><input style='float: right;' class='btn btn-primary'
 										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/order?cid=${bean.cid}'"

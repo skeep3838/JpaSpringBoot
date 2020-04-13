@@ -14,11 +14,13 @@ var item = [];
 
 function itemCount(){	
 	var price = document.getElementById("price").value;
+//	alert("price: "+price);
 	$.ajax({
 	type: "GET",
-	url: ("items/"+price),
+	url: ("/item/price/"+price),
 	success: function (data) {
 		var itemCountN=data;
+		$("#showCount").val(itemCountN);
 		alert("itemCount: "+itemCountN);
 	}
 });
