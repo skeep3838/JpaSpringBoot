@@ -21,34 +21,7 @@
 			<h3 class="col-4">客戶ID: ${cid}</h3>
 			<a href=<c:url value='/' /> class="col-2 btn btn-link">返回客戶列表</a>
 		</div>
-		<div class="row">
-			<form method="GET" action="${pageContext.request.contextPath}/items" class="col-6">
-				<div class="row">
-					<select class="custom-select" name="sortItem" style="width:30%">								
-						<option value=0 disabled selected hidden>選擇排序項目</option>
-						<option value="iid" >商品編碼</option>	
-						<option value="iname" >商品名稱</option>
-						<option value="type" >商品種類</option>
-						<option value="price" >商品價格</option>	
-						<option value="lifedate" >保存期限</option>							
-					</select>
-					<input type="hidden" name="cid" value="${cid}">
-					<input type="hidden" name="page" value=0>
-					<div class="input-group-append">
-						<input type="submit"  class="btn btn-info" value="送出"  id="button-addon2"></button>
-					</div>	
-				</div>
-			</form>
-			<div class="input-group mb-3 col-4">
-				<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品" 
-				  		aria-describedby="button-addon2" id="price">
-				<div class="input-group-append">
-					<button class="btn btn-info" onclick="itemCount()" id="button-addon2">送出</button>
-				</div>
-			</div>
-			<div class="col-6"></div>
-			<div id="showCount" class="col-6"></div>
-		</div>
+		
 		<form method="POST" action="${pageContext.request.contextPath}/items/priceList">
 			<div class="input-group mb-3 col-4">
 				<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品" 
@@ -91,17 +64,6 @@
 					</tbody>
 				</table>
 			<div class="container">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				  	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${0}&sortItem=${sortItem}">首頁</a></li>	
-				    <c:forEach var="i" begin="1" end="${totalPages}">
-				    	 <li class="page-item">
-				    	 	<a class="page-link" href='${pageContext.request.contextPath}/items?cid=${cid}&page=${i-1}&sortItem=${sortItem}'>${i}</a>
-				    	 </li>
-					</c:forEach>
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${totalPages-1}&sortItem=${sortItem}">末頁</a></li>
-				  </ul>
-				</nav>
 				<form method="post" action="${pageContext.request.contextPath}/items">
 					<input type="hidden" id="cid" name="cid" value="${cid}">
 					<input type="hidden" id="orderDetail" name="orderDetail" value="">

@@ -1,4 +1,4 @@
-rop table itemline;
+drop table itemline;
 drop table orders;
 drop table item;
 drop table customer;
@@ -45,3 +45,8 @@ INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜2
 INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜3', 40, CAST(N'2020-05-30' AS Date));
 INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜4', 50, CAST(N'2020-06-01' AS Date));
 INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜5', 70, CAST(N'2020-05-12' AS Date));
+
+
+
+
+

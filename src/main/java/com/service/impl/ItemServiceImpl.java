@@ -2,6 +2,8 @@ package com.service.impl;
 
 
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +43,13 @@ public class ItemServiceImpl implements ItemService {
 		return dao.findByIid(iid);
 	}
 	@Override
-	public String priceRangeEntity(Integer price_in) {
+	public Integer priceRangeEntity(Integer price_in) {
 		return dao.priceRangeEntity(price_in);
 	}
+//	@Override
+//	public Object[] priceRangeItem(Integer price_in) {
+//		return dao.priceRangeItem(price_in);
+//	}
 
 
 

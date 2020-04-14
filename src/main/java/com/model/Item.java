@@ -13,10 +13,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "item")
-@NamedStoredProcedureQuery(name = "priceRange", 
-procedureName = "priceRange", parameters = {
-  @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class),
-  @StoredProcedureParameter(mode = ParameterMode.INOUT, name = "countRow_out", type = Integer.class)})
+//@NamedStoredProcedureQuery(name = "Item.priceRangeItem", 
+//procedureName = "price_Range_Item", parameters = 
+//  @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class))
 public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

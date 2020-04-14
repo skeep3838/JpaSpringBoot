@@ -1,0 +1,58 @@
+USE [jpaDb]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE 
+PROCEDURE [dbo].[itemQty] 
+	@input_seq int,
+	@input_qty int
+	AS	
+BEGIN
+DECLARE @errorNo int;
+SET NOCOUNT ON;  
+UPDATE itemline
+SET qty = @input_qty
+WHERE seq=@input_seq;
+SET @errorNo  = @@ERROR
+IF @errorNo<>0
+	RETURN @errorNo;
+END
+GO
+
+/-------------------------------------------------
+
+USE [jpaDb]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[priceRange]
+	@price_in int = 0,
+	@countRow_out int OUTPUT
+	AS	
+BEGIN
+	SET NOCOUNT ON;  
+	SELECT @countRow_out = count(*) from item WHERE price > @price_in;
+
+END
+GO
+
+/----------------------------------------------------------------------
+
+USE [jpaDb]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[priceRangeItem] 
+	@price_in int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SELECT * FROM [dbo].[item] WHERE price>@price_in;
+END
+GO
