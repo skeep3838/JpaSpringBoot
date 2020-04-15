@@ -22,7 +22,7 @@
 			<a href=<c:url value='/' /> class="col-2 btn btn-link">返回客戶列表</a>
 		</div>
 		<div class="row">
-			<form method="GET" action="${pageContext.request.contextPath}/items" class="col-6">
+			<form method="GET" action="<c:url value='items' />" class="col-6">
 				<div class="row">
 					<select class="custom-select" name="sortItem" style="width:30%">								
 						<option value=0 disabled selected hidden>選擇排序項目</option>
@@ -95,17 +95,17 @@
 					<div class="col-4">
 						<nav aria-label="Page navigation example">
 						  <ul class="pagination">
-						  	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${0}&sortItem=${sortItem}">首頁</a></li>	
+						  	<li class="page-item"><a class="page-link" href="<c:url value='items?cid=${cid}&page=${0}&sortItem=${sortItem}'/>">首頁</a></li>	
 						    <c:forEach var="i" begin="1" end="${totalPages}">
 						    	 <li class="page-item">
-						    	 	<a class="page-link" href='${pageContext.request.contextPath}/items?cid=${cid}&page=${i-1}&sortItem=${sortItem}'>${i}</a>
+						    	 	<a class="page-link" href="<c:url value='items?cid=${cid}&page=${i-1}&sortItem=${sortItem}'/>">${i}</a>
 						    	 </li>
 							</c:forEach>
-							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${totalPages-1}&sortItem=${sortItem}">末頁</a></li>
+							<li class="page-item"><a class="page-link" href="<c:url value='items?cid=${cid}&page=${totalPages-1}&sortItem=${sortItem}'/>">末頁</a></li>
 						  </ul>
 						</nav>
 					</div>
-					<form method="POST" action="${pageContext.request.contextPath}/items" class="col-6">
+					<form method="POST" action="<c:url value='items' />" class="col-6">
 						<div class="row">
 							<select class="custom-select" name="eid" style="width:30%">								
 								<option value=0 disabled selected hidden>負責員工</option>
@@ -116,7 +116,7 @@
 							<input type="hidden" id="cid" name="cid" value="${cid}">
 							<input type="hidden" id="orderDetail" name="orderDetail" value="">
 							<div class="input-group-append">
-								<input type="submit"  class="btn btn-success" value="送出"  id="button-addon2">
+								<input type="submit"  class="btn btn-primary" value="送出"  id="button-addon2">
 							</div>	
 						</div>
 					</form>					

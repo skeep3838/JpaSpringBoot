@@ -22,13 +22,11 @@ public class Orders {
 	private Integer oid;
 	private Date createdate;
 	private Integer shipment;
+	private Integer eid;
+	
 	@ManyToOne
 	@JoinColumn(name = "cid", nullable = false)
 	private Customer customer;
-	
-	@ManyToOne
-	@JoinColumn(name = "eid", nullable = true)
-	private Employee employee;
 
 //	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
 //	mappedBy="orderMap",  => 在Itemline 找到對應的 private Orders orderMap
@@ -43,11 +41,11 @@ public class Orders {
 		this.customer = customer;
 	}
 
-	public Orders(Date createdate, Integer shipment, Customer customer, Employee employee, List<Itemline> orderDetail) {
+	public Orders(Date createdate, Integer shipment, Customer customer, Integer eid, List<Itemline> orderDetail) {
 		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
-		this.employee = employee;
+		this.eid = eid;
 		this.orderDetail = orderDetail;
 	}
 
@@ -90,12 +88,12 @@ public class Orders {
 		return orderDetail;
 	}
 
-	public Employee getEmployee() {
-		return employee;
+	public Integer getEid() {
+		return eid;
 	}
 
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
+	public void setEid(Integer eid) {
+		this.eid = eid;
 	}
 
 	

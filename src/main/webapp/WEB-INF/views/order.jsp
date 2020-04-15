@@ -35,12 +35,12 @@
 							<td>${bean.oid}
 							<td>${bean.createDate}
 							<td>${bean.shipment}
-							<td>${bean.employee.ename}
+							<td>${bean.eid}
 							<td><input style='float: right;' class='btn btn-primary'
-										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/itemline?oid=${bean.oid}'"
+										type='button'onclick="javascript:location.href='<c:url value="itemline?oid=${bean.oid}"/>'"
 										value='詳細資訊' />
 							<td><input style='float: right;' class='btn btn-danger'
-										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/items/deleteOrder?oid=${bean.oid}&cid=${cid}'"
+										type='button'onclick="javascript:location.href='<c:url value="items/deleteOrder?oid=${bean.oid}&cid=${cid}"/>'"
 										value='刪除訂單' />
 							
 					</c:forEach>

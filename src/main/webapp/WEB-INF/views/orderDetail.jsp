@@ -41,10 +41,10 @@
 								 修改數量
 								</button>
 							<td><input style='float: right;' class='btn btn-danger'
-										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/itemline/delete?seq=${bean.seq}&oid=${orderNo}'"
+										type='button'onclick="javascript:location.href='<c:url value="itemline/delete?seq=${bean.seq}&oid=${orderNo}"/>'"
 										value='取消購買' />
 						<!-- Modal 修改數量的彈跳視窗-->
-						<form method="POST" action="${pageContext.request.contextPath}/itemline/update">
+						<form method="POST" action="<c:url value="itemline/update"/>">
 							<div class="modal fade" id="Modal${bean.seq}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog" role="document">
 							    <div class="modal-content">
