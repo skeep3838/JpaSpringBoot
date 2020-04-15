@@ -23,6 +23,7 @@ import com.model.Itemline;
 import com.model.Orders;
 import com.model.obJson;
 import com.service.CustomerService;
+import com.service.EmployeeService;
 import com.service.ItemService;
 import com.service.ItemlineService;
 import com.service.OrderService;
@@ -57,6 +58,13 @@ public class OrderController {
 		this.customerService = customerService;
 	}
 
+	EmployeeService employeeService;
+
+	@Autowired
+	public void setcService(EmployeeService employeeService) {
+		this.employeeService = employeeService;
+	}
+
 // ------------依客戶列表查詢訂單內容----------------------------------
 	@GetMapping("/order")
 	public String getOrderById(@RequestParam("cid") Integer cid, Model model) {
@@ -76,6 +84,7 @@ public class OrderController {
 		model.addAttribute("itemList", itemPage.getContent());
 		model.addAttribute("totalPages", itemPage.getTotalPages());
 		model.addAttribute("sortItem", sortItem);
+		model.addAttribute("employee", employeeService.findAll());
 		return "itemList";
 	}
 
@@ -90,11 +99,10 @@ public class OrderController {
 //		return "itemListInputPrice";
 //	}
 
-
 // ----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")
 	public String addOrder(@RequestParam("cid") Integer cid, @RequestParam("orderDetail") String orderDetail,
-			Model model) {
+			@RequestParam("eid") Integer eid, Model model) {
 		System.out.println(orderDetail);
 		List<Itemline> itemline = new ArrayList<Itemline>();
 //		把傳回來orderDetail的json字串轉為Object
@@ -114,8 +122,15 @@ public class OrderController {
 			Itemline item = new Itemline(null, itemService.getItemById(i.getIid()), i.getQty(), null);
 			itemline.add(item);
 		}
-//		新增訂單	
-		Orders order = new Orders((new Date()), 47, customerService.queryCustomerById(cid), itemline);
+//		新增訂單	: eid 允許是 null
+		Orders order = null;
+		if (eid != null) {
+			order = new Orders((new Date()), 47, customerService.queryCustomerById(cid),
+					employeeService.findByEid(eid), itemline);
+		} else {
+			order = new Orders((new Date()), 47, customerService.queryCustomerById(cid),
+					null, itemline);
+		}
 		Integer newOrder = orderService.addOrder(order);
 //		秀出最新的訂單明細
 		model.addAttribute("states", "訂購成功");

@@ -4,6 +4,11 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
 CREATE 
 PROCEDURE [dbo].[itemQty] 
 	@input_seq int,
@@ -20,11 +25,21 @@ IF @errorNo<>0
 	RETURN @errorNo;
 END
 GO
-
-/-------------------------------------------------
-
-USE [jpaDb]
+/****** Object:  StoredProcedure [dbo].[price_Range_Item]    Script Date: 2020/4/15 上午 11:39:00 ******/
+SET ANSI_NULLS ON
 GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[price_Range_Item] 
+	@price_in int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+	SELECT * FROM [dbo].[item] WHERE price>@price_in;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[priceRange]    Script Date: 2020/4/15 上午 11:39:00 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -36,23 +51,3 @@ CREATE PROCEDURE [dbo].[priceRange]
 BEGIN
 	SET NOCOUNT ON;  
 	SELECT @countRow_out = count(*) from item WHERE price > @price_in;
-
-END
-GO
-
-/----------------------------------------------------------------------
-
-USE [jpaDb]
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE PROCEDURE [dbo].[priceRangeItem] 
-	@price_in int = 0
-AS
-BEGIN
-	SET NOCOUNT ON;
-	SELECT * FROM [dbo].[item] WHERE price>@price_in;
-END
-GO

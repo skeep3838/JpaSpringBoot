@@ -24,6 +24,7 @@
 						<th>訂單編號</th>
 						<th>訂購日期</th>
 						<th>運費</th>
+						<th>負責員工</th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -34,6 +35,7 @@
 							<td>${bean.oid}
 							<td>${bean.createDate}
 							<td>${bean.shipment}
+							<td>${bean.employee.ename}
 							<td><input style='float: right;' class='btn btn-primary'
 										type='button'onclick="javascript:location.href='${pageContext.request.contextPath}/itemline?oid=${bean.oid}'"
 										value='詳細資訊' />

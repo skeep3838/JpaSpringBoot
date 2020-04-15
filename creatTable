@@ -3,48 +3,206 @@ drop table orders;
 drop table item;
 drop table customer;
 
-CREATE TABLE customer(
-	cid int IDENTITY(1,1) NOT NULL,
-	cname nvarchar(10) NOT NULL,
-	password nvarchar(10) NULL);
-
-CREATE TABLE item(
-	iid int IDENTITY(1,1) NOT NULL,
-	iname nvarchar(10) NOT NULL,
-	type nvarchar(10) NULL,
-        price int NOT NULL,
-        lifedate date NULL);
-        
-CREATE TABLE itemline(
-	seq int IDENTITY(1,1) NOT NULL,
-	qty int NOT NULL,
-	iid int NOT NULL,
-    oid int NOT NULL);
-        
-CREATE TABLE orders(
-	oid int IDENTITY(1,1) NOT NULL,
-	createdate datetime2(7) NULL,
-	shipment int NULL,
-    cid int NOT NULL);
-    
-INSERT INTO customer (cname,password) VALUES ('使用者1號', '12345');
-INSERT INTO customer (cname,password) VALUES ('使用者2號', '12345');
-
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果1', 90, CAST(N'2020-09-09' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果2', 70, CAST(N'2020-10-10' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果3', 60, CAST(N'2020-06-06' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果4', 45, CAST(N'2020-07-07' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'水果', N'蘋果5', 80, CAST(N'2020-05-05' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬1', 100, CAST(N'2020-06-06' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬2', 120, CAST(N'2020-07-15' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬3', 90, CAST(N'2020-08-24' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬4', 180, CAST(N'2020-07-23' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'肉類', N'松阪豬5', 150, CAST(N'2020-09-01' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜1', 20, CAST(N'2020-05-05' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜2', 60, CAST(N'2020-06-15' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜3', 40, CAST(N'2020-05-30' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜4', 50, CAST(N'2020-06-01' AS Date));
-INSERT INTO item  (type, iname, price, lifedate) VALUES (N'青菜', N'高麗菜5', 70, CAST(N'2020-05-12' AS Date));
+USE [jpaDb]
+GO
+/****** Object:  Table [dbo].[customer]    Script Date: 2020/4/15 上午 11:38:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[customer](
+	[cid] [int] IDENTITY(1,1) NOT NULL,
+	[cname] [nvarchar](50) NULL,
+	[password] [varbinary](50) NULL,
+ CONSTRAINT [PK__customer__D837D05F3461C2F6] PRIMARY KEY CLUSTERED 
+(
+	[cid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[employee]    Script Date: 2020/4/15 上午 11:38:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[employee](
+	[eid] [int] IDENTITY(1,1) NOT NULL,
+	[ename] [nvarchar](50) NULL,
+	[address] [nvarchar](50) NULL,
+	[phone] [varchar](50) NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[item]    Script Date: 2020/4/15 上午 11:38:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[item](
+	[iid] [int] IDENTITY(1,1) NOT NULL,
+	[type] [nvarchar](50) NULL,
+	[iname] [nvarchar](50) NULL,
+	[price] [int] NOT NULL,
+	[lifedate] [date] NULL,
+ CONSTRAINT [PK__item__DC5021AA87DE5E30] PRIMARY KEY CLUSTERED 
+(
+	[iid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[itemline]    Script Date: 2020/4/15 上午 11:38:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[itemline](
+	[seq] [int] IDENTITY(1,1) NOT NULL,
+	[qty] [int] NOT NULL,
+	[iid] [int] NOT NULL,
+	[oid] [int] NULL,
+ CONSTRAINT [PK__itemline__DDDFBCBE1495E6C0] PRIMARY KEY CLUSTERED 
+(
+	[seq] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[orders]    Script Date: 2020/4/15 上午 11:38:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[orders](
+	[oid] [int] IDENTITY(1,1) NOT NULL,
+	[createdate] [datetime2](7) NULL,
+	[shipment] [int] NULL,
+	[cid] [int] NOT NULL,
+	[eid] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[oid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[customer] ON 
+GO
+INSERT [dbo].[customer] ([cid], [cname], [password]) VALUES (1, N'使用者1號', 0x3132333435)
+GO
+INSERT [dbo].[customer] ([cid], [cname], [password]) VALUES (2, N'使用者2號', 0x3132333435)
+GO
+SET IDENTITY_INSERT [dbo].[customer] OFF
+GO
+SET IDENTITY_INSERT [dbo].[employee] ON 
+GO
+INSERT [dbo].[employee] ([eid], [ename], [address], [phone]) VALUES (1, N'員工1', N'美國', N'1111111')
+GO
+INSERT [dbo].[employee] ([eid], [ename], [address], [phone]) VALUES (2, N'員工2', N'英國', N'2222222')
+GO
+INSERT [dbo].[employee] ([eid], [ename], [address], [phone]) VALUES (3, N'員工3', N'義大利', N'3333333')
+GO
+SET IDENTITY_INSERT [dbo].[employee] OFF
+GO
+SET IDENTITY_INSERT [dbo].[item] ON 
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (1, N'水果', N'蘋果1', 90, CAST(N'2020-09-09' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (2, N'水果', N'蘋果2', 80, CAST(N'2020-10-10' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (3, N'水果', N'蘋果3', 70, CAST(N'2020-07-07' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (5, N'水果', N'蘋果4', 60, CAST(N'2020-07-15' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (6, N'水果', N'蘋果5', 50, CAST(N'2020-08-08' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (7, N'肉類', N'松阪豬1', 300, CAST(N'2020-11-12' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (8, N'肉類', N'松阪豬2', 250, CAST(N'2020-11-11' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (11, N'肉類', N'松阪豬3', 250, CAST(N'2020-09-30' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (12, N'肉類', N'松阪豬4', 200, CAST(N'2020-10-30' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (13, N'肉類', N'松阪豬5', 400, CAST(N'2020-10-10' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (14, N'蔬菜', N'高麗菜1', 30, CAST(N'2020-04-30' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (15, N'蔬菜', N'高麗菜2', 25, CAST(N'2020-05-01' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (16, N'蔬菜', N'高麗菜3', 15, CAST(N'2020-04-15' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (17, N'蔬菜', N'高麗菜4', 50, CAST(N'2020-05-10' AS Date))
+GO
+INSERT [dbo].[item] ([iid], [type], [iname], [price], [lifedate]) VALUES (18, N'蔬菜', N'高麗菜5', 45, CAST(N'2020-06-01' AS Date))
+GO
+SET IDENTITY_INSERT [dbo].[item] OFF
+GO
+SET IDENTITY_INSERT [dbo].[itemline] ON 
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (6, 12, 18, 26)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (7, 11, 17, 26)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (8, 10, 16, 26)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (12, 5, 17, 28)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (13, 6, 16, 28)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (14, 5, 14, 28)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (15, 5, 17, 29)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (16, 6, 16, 29)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (17, 5, 14, 29)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (22, 4, 16, 32)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (23, 6, 15, 32)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (24, 5, 17, 32)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (25, 3, 15, 33)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (26, 6, 14, 33)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (27, 4, 18, 33)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (28, 4, 14, 34)
+GO
+INSERT [dbo].[itemline] ([seq], [qty], [iid], [oid]) VALUES (29, 3, 15, 34)
+GO
+SET IDENTITY_INSERT [dbo].[itemline] OFF
+GO
+SET IDENTITY_INSERT [dbo].[orders] ON 
+GO
+INSERT [dbo].[orders] ([oid], [createdate], [shipment], [cid], [eid]) VALUES (26, CAST(N'2020-04-09T15:02:15.4370000' AS DateTime2), 47, 1, 1)
+GO
+INSERT [dbo].[orders] ([oid], [createdate], [shipment], [cid], [eid]) VALUES (28, CAST(N'2020-04-09T16:37:41.9420000' AS DateTime2), 47, 2, 1)
+GO
+INSERT [dbo].[orders] ([oid], [createdate], [shipment], [cid], [eid]) VALUES (29, CAST(N'2020-04-09T17:34:37.1670000' AS DateTime2), 47, 2, NULL)
+GO
+INSERT [dbo].[orders] ([oid], [createdate], [shipment], [cid], [eid]) VALUES (32, CAST(N'2020-04-14T21:05:04.2900000' AS DateTime2), 47, 1, 2)
+GO
+INSERT [dbo].[orders] ([oid], [createdate], [shipment], [cid], [eid]) VALUES (33, CAST(N'2020-04-14T21:14:04.6290000' AS DateTime2), 47, 2, NULL)
+GO
+INSERT [dbo].[orders] ([oid], [createdate], [shipment], [cid], [eid]) VALUES (34, CAST(N'2020-04-15T11:28:08.2980000' AS DateTime2), 47, 1, 2)
+GO
+SET IDENTITY_INSERT [dbo].[orders] OFF
+GO
+ALTER TABLE [dbo].[itemline]  WITH CHECK ADD  CONSTRAINT [FKo7p68k5ekgquos6r44oe17j59] FOREIGN KEY([oid])
+REFERENCES [dbo].[orders] ([oid])
+GO
+ALTER TABLE [dbo].[itemline] CHECK CONSTRAINT [FKo7p68k5ekgquos6r44oe17j59]
+GO
+ALTER TABLE [dbo].[itemline]  WITH CHECK ADD  CONSTRAINT [FKr9obrcmmx5smbip86xkgcij4b] FOREIGN KEY([iid])
+REFERENCES [dbo].[item] ([iid])
+GO
+ALTER TABLE [dbo].[itemline] CHECK CONSTRAINT [FKr9obrcmmx5smbip86xkgcij4b]
+GO
+ALTER TABLE [dbo].[orders]  WITH CHECK ADD  CONSTRAINT [FKl7d2sjt1svwiocconhxffxfe0] FOREIGN KEY([cid])
+REFERENCES [dbo].[customer] ([cid])
+GO
+ALTER TABLE [dbo].[orders] CHECK CONSTRAINT [FKl7d2sjt1svwiocconhxffxfe0]
+GO
 
 
 

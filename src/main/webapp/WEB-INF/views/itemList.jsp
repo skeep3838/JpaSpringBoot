@@ -35,7 +35,7 @@
 					<input type="hidden" name="cid" value="${cid}">
 					<input type="hidden" name="page" value=0>
 					<div class="input-group-append">
-						<input type="submit"  class="btn btn-info" value="送出"  id="button-addon2"></button>
+						<input type="submit"  class="btn btn-success" value="送出"  id="button-addon2">
 					</div>	
 				</div>
 			</form>
@@ -49,16 +49,16 @@
 			<div class="col-6"></div>
 			<div id="showCount" class="col-6"></div>
 		</div>
-		<form method="POST" action="${pageContext.request.contextPath}/items/priceList">
-			<div class="input-group mb-3 col-4">
-				<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品" 
-				  		aria-describedby="button-addon2" id="price" name="price">
-				<input type="hidden" name="cid" value="${cid}">
-				<div class="input-group-append">
-					<input type="submit" class="btn btn-info"  id="button-addon2" value="送出">
-				</div>
-			</div>
-		</form>
+<%-- 		<form method="POST" action="${pageContext.request.contextPath}/items/priceList"> --%>
+<!-- 			<div class="input-group mb-3 col-4"> -->
+<!-- 				<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品"  -->
+<!-- 				  		aria-describedby="button-addon2" id="price" name="price"> -->
+<%-- 				<input type="hidden" name="cid" value="${cid}"> --%>
+<!-- 				<div class="input-group-append"> -->
+<!-- 					<input type="submit" class="btn btn-info"  id="button-addon2" value="送出"> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
 		<div class="bs-docs-example div-height" align='center'>
 				<table id='table1' class="table table-hover">
 					<thead>
@@ -91,23 +91,36 @@
 					</tbody>
 				</table>
 			<div class="container">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination">
-				  	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${0}&sortItem=${sortItem}">首頁</a></li>	
-				    <c:forEach var="i" begin="1" end="${totalPages}">
-				    	 <li class="page-item">
-				    	 	<a class="page-link" href='${pageContext.request.contextPath}/items?cid=${cid}&page=${i-1}&sortItem=${sortItem}'>${i}</a>
-				    	 </li>
-					</c:forEach>
-					<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${totalPages-1}&sortItem=${sortItem}">末頁</a></li>
-				  </ul>
-				</nav>
-				<form method="post" action="${pageContext.request.contextPath}/items">
-					<input type="hidden" id="cid" name="cid" value="${cid}">
-					<input type="hidden" id="orderDetail" name="orderDetail" value="">
-		<!-- 			<input type="hidden" id="shopCa" name="shopCa" value=0> -->
-					<input type="submit" class="btn btn-primary"  value="確定購買">	
-				</form>
+				<div class="row justify-content-between">
+					<div class="col-4">
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						  	<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${0}&sortItem=${sortItem}">首頁</a></li>	
+						    <c:forEach var="i" begin="1" end="${totalPages}">
+						    	 <li class="page-item">
+						    	 	<a class="page-link" href='${pageContext.request.contextPath}/items?cid=${cid}&page=${i-1}&sortItem=${sortItem}'>${i}</a>
+						    	 </li>
+							</c:forEach>
+							<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/items?cid=${cid}&page=${totalPages-1}&sortItem=${sortItem}">末頁</a></li>
+						  </ul>
+						</nav>
+					</div>
+					<form method="POST" action="${pageContext.request.contextPath}/items" class="col-6">
+						<div class="row">
+							<select class="custom-select" name="eid" style="width:30%">								
+								<option value=0 disabled selected hidden>負責員工</option>
+								<c:forEach varStatus="i" var="emp" items="${employee}">
+									<option value="${emp.eid}">${emp.ename}</option>
+								</c:forEach>							
+							</select>
+							<input type="hidden" id="cid" name="cid" value="${cid}">
+							<input type="hidden" id="orderDetail" name="orderDetail" value="">
+							<div class="input-group-append">
+								<input type="submit"  class="btn btn-success" value="送出"  id="button-addon2">
+							</div>	
+						</div>
+					</form>					
+				</div>
 			</div>
 		</div>
 	</div>
