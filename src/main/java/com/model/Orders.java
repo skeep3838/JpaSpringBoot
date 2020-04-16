@@ -22,7 +22,10 @@ public class Orders {
 	private Integer oid;
 	private Date createdate;
 	private Integer shipment;
-	private Integer eid;
+	
+	@ManyToOne
+	@JoinColumn(name = "eid", nullable = true)
+	private Employee employee;
 	
 	@ManyToOne
 	@JoinColumn(name = "cid", nullable = false)
@@ -34,18 +37,18 @@ public class Orders {
 	@JoinColumn(name="oid")
 	@OrderBy("seq")
 	private List<Itemline> orderDetail;
-
+	
 	public Orders(Date createdate, Integer shipment, Customer customer) {
 		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
 	}
 
-	public Orders(Date createdate, Integer shipment, Customer customer, Integer eid, List<Itemline> orderDetail) {
+	public Orders(Date createdate, Integer shipment, Customer customer, Employee employee, List<Itemline> orderDetail) {
 		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
-		this.eid = eid;
+		this.employee = employee;
 		this.orderDetail = orderDetail;
 	}
 
@@ -88,12 +91,12 @@ public class Orders {
 		return orderDetail;
 	}
 
-	public Integer getEid() {
-		return eid;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEid(Integer eid) {
-		this.eid = eid;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	

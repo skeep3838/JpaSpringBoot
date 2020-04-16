@@ -1,11 +1,16 @@
 package com.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.model.Customer;
+import com.model.Employee;
+import com.model.EmployeeOrdersJoinColumn;
 import com.model.Orders;
 import com.repository.OrderRepository;
 import com.service.OrderService;
@@ -40,6 +45,42 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void deleteOrder(Integer oid) {
 		dao.deleteById(oid);		
+	}
+
+	@Override
+	public List<EmployeeOrdersJoinColumn> rightJoinColumn() {
+		List<Orders> list = dao.findAll();
+		List<EmployeeOrdersJoinColumn> list2 = new ArrayList<EmployeeOrdersJoinColumn>();
+		Integer count=0;
+		for(Orders o:list) {
+			count+=1;
+			EmployeeOrdersJoinColumn eojc = null;
+			if(o.getEmployee() == null) {
+				eojc = new EmployeeOrdersJoinColumn(count, null,
+						null, o.getOid(),o.getCreateDate(),o.getCustomer().getCid());
+			}else {
+				eojc = new EmployeeOrdersJoinColumn(count, o.getEmployee().getEid(),
+						o.getEmployee().getEname(), o.getOid(),o.getCreateDate(),o.getCustomer().getCid());	
+			}
+			list2.add(eojc);
+		}
+		for(EmployeeOrdersJoinColumn e:list2) {
+			System.out.println(e.getEname());
+		}
+		return list2;
+	}
+
+	@SuppressWarnings("null")
+	@Override
+	public List<EmployeeOrdersJoinColumn> empNullJoinColumn() {
+		List<Orders> list = dao.findByEmployeeIsNull();
+		List<EmployeeOrdersJoinColumn> list2 = new ArrayList<EmployeeOrdersJoinColumn>();
+		for(Orders o:list) {
+			EmployeeOrdersJoinColumn eojc = new EmployeeOrdersJoinColumn(null, null, null,
+					o.getOid(), o.getCreateDate(), o.getCustomer().getCid());
+			list2.add(eojc);
+		}
+		return list2;
 	}
 
 }

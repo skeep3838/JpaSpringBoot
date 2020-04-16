@@ -1,7 +1,10 @@
 package com.service;
 
 
+import java.util.List;
+
 import com.model.Customer;
+import com.model.EmployeeOrdersJoinColumn;
 import com.model.Orders;
 
 public interface OrderService {
@@ -9,4 +12,6 @@ public interface OrderService {
 	Orders getOrderByOid(Integer oid);
 	Integer addOrder(Orders order);
 	void deleteOrder(Integer oid);
+	List<EmployeeOrdersJoinColumn> rightJoinColumn();
+	List<EmployeeOrdersJoinColumn> empNullJoinColumn();
 }
