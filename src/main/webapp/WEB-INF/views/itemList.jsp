@@ -108,7 +108,7 @@
 					<form method="POST" action="<c:url value='items' />" class="col-6">
 						<div class="row">
 							<select class="custom-select" name="eid" style="width:30%">								
-								<option value=0 disabled selected hidden>負責員工</option>
+								<option disabled selected hidden>負責員工</option>
 								<c:forEach varStatus="i" var="emp" items="${employee}">
 									<option value="${emp.eid}">${emp.ename}</option>
 								</c:forEach>							

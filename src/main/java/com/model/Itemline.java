@@ -1,7 +1,6 @@
 package com.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +20,7 @@ public class Itemline {
 	private Item item;
 
 	@ManyToOne(targetEntity = Orders.class)
-	@JoinColumn(name="oid", nullable=false)
+//	@JoinColumn(name="oid", nullable=false)
 	private Orders order;
 
 	public Itemline(Integer seq, Item item, Integer qty, Orders order) {

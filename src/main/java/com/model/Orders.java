@@ -22,11 +22,11 @@ public class Orders {
 	private Integer oid;
 	private Date createdate;
 	private Integer shipment;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "eid", nullable = true)
 	private Employee employee;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cid", nullable = false)
 	private Customer customer;
@@ -34,22 +34,22 @@ public class Orders {
 //	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
 //	mappedBy="orderMap",  => 在Itemline 找到對應的 private Orders orderMap
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name="oid")
+	@JoinColumn(name = "order_oid")
 	@OrderBy("seq")
-	private List<Itemline> orderDetail;
-	
+	private List<Itemline> orders;
+
 	public Orders(Date createdate, Integer shipment, Customer customer) {
 		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
 	}
 
-	public Orders(Date createdate, Integer shipment, Customer customer, Employee employee, List<Itemline> orderDetail) {
+	public Orders(Date createdate, Integer shipment, Customer customer, Employee employee, List<Itemline> orders) {
 		this.createdate = createdate;
 		this.shipment = shipment;
 		this.customer = customer;
 		this.employee = employee;
-		this.orderDetail = orderDetail;
+		this.orders = orders;
 	}
 
 	public Orders() {
@@ -83,12 +83,12 @@ public class Orders {
 		return customer;
 	}
 
-	public void setOrderDetail(List<Itemline> orderDetail) {
-		this.orderDetail = orderDetail;
+	public void setOrderDetail(List<Itemline> orders) {
+		this.orders = orders;
 	}
 
 	public List<Itemline> getOrderDetail() {
-		return orderDetail;
+		return orders;
 	}
 
 	public Employee getEmployee() {
@@ -99,5 +99,4 @@ public class Orders {
 		this.employee = employee;
 	}
 
-	
 }

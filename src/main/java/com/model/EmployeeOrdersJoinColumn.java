@@ -2,7 +2,6 @@ package com.model;
 
 import java.util.Date;
 
-import javax.persistence.NamedQuery;
 
 //@NamedQuery(name="employee.left",
 //			query="SELECT e FROM Employee e left join orders o where e.eid=o.eid")

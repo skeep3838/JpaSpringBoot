@@ -67,16 +67,6 @@ public class OrderController {
 		this.employeeService = employeeService;
 	}
 
-// ------------依客戶列表查詢訂單內容----------------------------------
-	@GetMapping("/order")
-	public String getOrderById(@RequestParam("cid") Integer cid, Model model) {
-		Customer cus = customerService.queryCustomerById(cid);
-		model.addAttribute("states", "會員訂單列表");
-		model.addAttribute("cid", cid);
-		model.addAttribute("cOrder", cus.getOrderList());
-		return "order";
-	}
-
 // -------------商品清單------------------------------------------------------------------
 	@GetMapping("/items")
 	public String getItemList(@RequestParam("cid") Integer cid, @RequestParam("page") Integer page,
@@ -104,7 +94,7 @@ public class OrderController {
 // ----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")
 	public String addOrder(@RequestParam("cid") Integer cid, @RequestParam("orderDetail") String orderDetail,
-			@RequestParam("eid") Integer eid, Model model) {
+			@RequestParam(value="eid",required=false) Integer eid, Model model) {
 		System.out.println(orderDetail);
 		List<Itemline> itemline = new ArrayList<Itemline>();
 //		把傳回來orderDetail的json字串轉為Object
@@ -127,11 +117,10 @@ public class OrderController {
 //		新增訂單	: eid 允許是 null
 		Orders order = null;
 		if (eid != null) {
-			order = new Orders((new Date()), 47, customerService.queryCustomerById(cid),
-					employeeService.findByEid(eid), itemline);
+			order = new Orders((new Date()), 47, customerService.queryCustomerById(cid), employeeService.findByEid(eid),
+					itemline);
 		} else {
-			order = new Orders((new Date()), 47, customerService.queryCustomerById(cid),
-					null, itemline);
+			order = new Orders((new Date()), 47, customerService.queryCustomerById(cid), null, itemline);
 		}
 		Integer newOrder = orderService.addOrder(order);
 //		秀出最新的訂單明細
@@ -140,6 +129,16 @@ public class OrderController {
 		model.addAttribute("orderDetail", itemlineService.getOrderDetailByOrder(orderService.getOrderByOid(newOrder)));
 
 		return "orderDetail";
+	}
+
+// ------------依客戶列表查詢訂單內容----------------------------------
+	@GetMapping("/order")
+	public String getOrderById(@RequestParam("cid") Integer cid, Model model) {
+		Customer cus = customerService.queryCustomerById(cid);
+		model.addAttribute("states", "會員訂單列表");
+		model.addAttribute("cid", cid);
+		model.addAttribute("cOrder", cus.getOrderList());
+		return "order";
 	}
 
 //	----------刪除訂單------------------------------------------------------------
@@ -154,7 +153,7 @@ public class OrderController {
 
 	}
 
-	// 查詢高於價格的商品筆數------------------------------------------------------
+// 查詢高於價格的商品筆數------------------------------------------------------
 
 	@GetMapping("/item/price/{price}")
 	@ResponseBody
