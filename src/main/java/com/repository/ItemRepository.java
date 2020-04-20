@@ -15,7 +15,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer>{
 	@Procedure(procedureName = "priceRange", outputParameterName = "countRow_out")
 	Integer priceRangeEntity(Integer price_in);
 //	@Procedure(procedureName = "price_Range_Item")
-//	Object[] priceRangeItem(Integer price_in);
+//	List<Item> priceRangeItem(Integer price_in);
 //	@Query(value = "EXEC price_Range_Item :price_in")
 //	List<Item> priceRangeItem(@Param("price_in") Integer price_in);
 }

@@ -15,5 +15,5 @@ public interface ItemService {
 	Page<Item> getAllItem(Integer page,String sortItem);
 	Item getItemById(Integer iid);
 	Integer priceRangeEntity(Integer price_in);
-//	Object[] priceRangeItem(Integer price_in);
+	List<Item> priceRangeItem(Integer price);
 }

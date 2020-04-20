@@ -20,7 +20,7 @@ public class Itemline {
 	private Item item;
 
 	@ManyToOne(targetEntity = Orders.class)
-//	@JoinColumn(name="oid", nullable=false)
+	@JoinColumn(name = "oid")
 	private Orders order;
 
 	public Itemline(Integer seq, Item item, Integer qty, Orders order) {
@@ -58,12 +58,12 @@ public class Itemline {
 		this.item = item;
 	}
 
-	public Orders getOrders() {
+	public Orders getOrder() {
 		return order;
 	}
 
-	public void setOrders(Orders orders) {
-		this.order = orders;
+	public void setOrder(Orders order) {
+		this.order = order;
 	}
 
 }

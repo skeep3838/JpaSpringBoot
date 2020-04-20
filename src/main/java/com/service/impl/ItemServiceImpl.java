@@ -4,6 +4,7 @@ package com.service.impl;
 
 import java.util.List;
 
+import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +16,29 @@ import org.springframework.stereotype.Service;
 
 import com.model.Item;
 import com.repository.ItemRepository;
+import com.repository.StoreProcedureDao;
 import com.service.ItemService;
 @Transactional
 @Service
 public class ItemServiceImpl implements ItemService {
+	
 	@Autowired
-	ItemRepository dao;
-	public void setDao(ItemRepository dao) {
-		this.dao = dao;
+	StoreProcedureDao storeProcedureDao;
+	public void setStoreProcedureDao(StoreProcedureDao storeProcedureDao) {
+		this.storeProcedureDao = storeProcedureDao;
+	}
+	
+	@Autowired
+	ItemRepository itemRepository;
+	public void setItemRepository(ItemRepository dao) {
+		this.itemRepository = dao;
 	}
 	@Override
 	public Page<Item> getAllItem(Integer page,String sortItem) {
 //		Sort sort = Sort.by("iid").ascending();
 //		Sort sort = Sort.by("iid").descending();
 		Pageable pageable = PageRequest.of(page, 5, Sort.Direction.ASC,sortItem);
-		Page<Item> item = dao.findAll(pageable);
+		Page<Item> item = itemRepository.findAll(pageable);
 		
 //		System.out.println("全部筆數: "+item.getTotalElements());
 //		System.out.println("總頁數: "+item.getTotalPages());
@@ -40,16 +49,17 @@ public class ItemServiceImpl implements ItemService {
 	}
 	@Override
 	public Item getItemById(Integer iid) {		
-		return dao.findByIid(iid);
+		return itemRepository.findByIid(iid);
 	}
 	@Override
 	public Integer priceRangeEntity(Integer price_in) {
-		return dao.priceRangeEntity(price_in);
+		return itemRepository.priceRangeEntity(price_in);
 	}
-//	@Override
-//	public Object[] priceRangeItem(Integer price_in) {
-//		return dao.priceRangeItem(price_in);
-//	}
+	@Override
+	public List<Item> priceRangeItem(Integer price) {
+		List<Item> list = storeProcedureDao.priceRangeItem(price);
+		return list;
+	}
 
 
 

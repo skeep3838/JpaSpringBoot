@@ -80,16 +80,16 @@ public class OrderController {
 		return "itemList";
 	}
 
-//// -------------依價格搜尋商品清單------------------------------------------------------------------
-//	@PostMapping("/items/priceList")
-//	public String priceRangeItemList(@RequestParam("cid") Integer cid, 
-//			@RequestParam("price") Integer price, Model model) {
-//		Object[] itemPage = itemService.priceRangeItem(price);
-//		System.out.println(itemPage.toString());
-//		model.addAttribute("cid", cid);
-//		model.addAttribute("itemList", itemPage);
-//		return "itemListInputPrice";
-//	}
+// -------------依價格搜尋商品清單------------------------------------------------------------------
+	@PostMapping("/items/priceList")
+	public String priceRangeItemList(@RequestParam("cid") Integer cid, 
+			@RequestParam("price") Integer price, Model model) {
+		List<Item> itemPage = itemService.priceRangeItem(price);
+		System.out.println(itemPage.toString());
+		model.addAttribute("cid", cid);
+		model.addAttribute("itemList", itemPage);
+		return "itemListInputPrice";
+	}
 
 // ----------------新增訂單----------------------------------------------------------------
 	@PostMapping("/items")

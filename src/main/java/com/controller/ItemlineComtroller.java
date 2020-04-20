@@ -35,7 +35,7 @@ public class ItemlineComtroller {
 		Orders order = orderService.getOrderByOid(oid);
 		model.addAttribute("states", "會員訂單明細");
 		model.addAttribute("orderNo", oid);
-		model.addAttribute("orderDetail", order.getOrderDetail());
+		model.addAttribute("orderDetail", order.getOrders());
 		return "orderDetail";
 	}
 	
@@ -44,7 +44,7 @@ public class ItemlineComtroller {
 	@PostMapping("/itemline/update")
 	public String updateItemline(@RequestParam("seq") Integer seq, @RequestParam("qty") Integer qty, Model model) {
 		itemlineService.updateItemQty(seq, qty);
-		Integer oid = itemlineService.getItemlineBySeq(seq).getOrders().getOid();
+		Integer oid = itemlineService.getItemlineBySeq(seq).getOrder().getOid();
 		return "redirect:/itemline?oid=" + oid;
 		
 	}
@@ -58,7 +58,7 @@ public class ItemlineComtroller {
 
 		Customer customer = orderService.getOrderByOid(oid).getCustomer();
 //			此時刪掉最後一項，orderDetail不為null
-		if (orderService.getOrderByOid(oid).getOrderDetail().isEmpty()) {
+		if (orderService.getOrderByOid(oid).getOrders().isEmpty()) {
 			orderService.deleteOrder(oid);
 			model.addAttribute("states", "訂單沒有商品，已刪除");
 			model.addAttribute("cid", customer.getCid());
@@ -68,7 +68,7 @@ public class ItemlineComtroller {
 			Orders order = orderService.getOrderByOid(oid);
 			model.addAttribute("states", "會員訂單明細");
 			model.addAttribute("orderNo", order.getOid());
-			model.addAttribute("orderDetail", order.getOrderDetail());
+			model.addAttribute("orderDetail", order.getOrders());
 			return "redirect:/itemline?oid=" + order.getOid();
 		}
 

@@ -6,13 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "item")
-//@NamedStoredProcedureQuery(name = "Item.priceRangeItem", 
-//procedureName = "price_Range_Item", parameters = 
-//  @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class))
+@NamedStoredProcedureQuery(name = "price_Range_Item", 
+procedureName = "price_Range_Item", parameters = 
+  @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class))
 public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

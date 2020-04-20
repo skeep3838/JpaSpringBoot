@@ -49,16 +49,16 @@
 			<div class="col-6"></div>
 			<div id="showCount" class="col-6"></div>
 		</div>
-<%-- 		<form method="POST" action="${pageContext.request.contextPath}/items/priceList"> --%>
-<!-- 			<div class="input-group mb-3 col-4"> -->
-<!-- 				<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品"  -->
-<!-- 				  		aria-describedby="button-addon2" id="price" name="price"> -->
-<%-- 				<input type="hidden" name="cid" value="${cid}"> --%>
-<!-- 				<div class="input-group-append"> -->
-<!-- 					<input type="submit" class="btn btn-info"  id="button-addon2" value="送出"> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</form> -->
+		<form method="POST" action="${pageContext.request.contextPath}/items/priceList">
+			<div class="input-group mb-3 col-4">
+				<input type="text" class="form-control" placeholder="搜尋金額大於的商品" aria-label="搜尋金額大於的商品" 
+				  		aria-describedby="button-addon2" id="price" name="price">
+				<input type="hidden" name="cid" value="${cid}">
+				<div class="input-group-append">
+					<input type="submit" class="btn btn-info"  id="button-addon2" value="送出">
+				</div>
+			</div>
+		</form>
 		<div class="bs-docs-example div-height" align='center'>
 				<table id='table1' class="table table-hover">
 					<thead>
