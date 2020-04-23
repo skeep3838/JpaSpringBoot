@@ -14,29 +14,37 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "item")
 @NamedStoredProcedureQuery(name = "price_Range_Item", 
-procedureName = "price_Range_Item", parameters = 
-  @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class))
+procedureName = "price_Range_Item", resultClasses = Item.class,
+parameters = @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class))
 public class Item {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int iid;
+	private Integer iid;
 	private String iname;
 	private String type;
 	private Integer price;
 	private Date lifedate;
 	
 
-	public Item(int iid, String iname, String type, int price) {
+	public Item(Integer iid, String iname, String type, Integer price) {
 		this.iid = iid;
 		this.iname = iname;
 		this.type = type;
 		this.price = price;
 	}
+	
+	public Item(Integer iid, String iname, Date lifedate, Integer price, String type) {
+		this.iid = iid;
+		this.iname = iname;
+		this.type = type;
+		this.price = price;
+		this.lifedate = lifedate;
+	}
 	public Item() {}
-	public int getIid() {
+	public Integer getIid() {
 		return iid;
 	}
-	public void setIid(int iid) {
+	public void setIid(Integer iid) {
 		this.iid = iid;
 	}
 	public String getIname() {
@@ -51,10 +59,10 @@ public class Item {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 	public Date getLifedate() {

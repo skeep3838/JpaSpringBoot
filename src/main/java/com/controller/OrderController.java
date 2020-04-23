@@ -84,8 +84,8 @@ public class OrderController {
 	@PostMapping("/items/priceList")
 	public String priceRangeItemList(@RequestParam("cid") Integer cid, 
 			@RequestParam("price") Integer price, Model model) {
-		List<Item> itemPage = itemService.priceRangeItem(price);
-		System.out.println(itemPage.toString());
+		List<Item> itemPage = (List<Item>)itemService.priceRangeItem(price);
+		
 		model.addAttribute("cid", cid);
 		model.addAttribute("itemList", itemPage);
 		return "itemListInputPrice";

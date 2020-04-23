@@ -19,12 +19,13 @@ public class StoreProcedureDaoImpl implements StoreProcedureDao {
 	public void setFactory(EntityManager em) {
 		this.em = em;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Item> priceRangeItem(Integer price) {
 		StoredProcedureQuery storedProcedure = 
 				em.createNamedStoredProcedureQuery("price_Range_Item")
 				.setParameter("price_in", price);
-		@SuppressWarnings("unchecked")
+		storedProcedure.execute();
 		List<Item> list = (ArrayList<Item>)storedProcedure.getResultList();
 		return list;
 	}
