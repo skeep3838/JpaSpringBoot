@@ -3,7 +3,6 @@ package com.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,36 +12,42 @@ import com.model.Employee;
 import com.model.EmployeeOrdersJoinColumn;
 import com.model.Orders;
 import com.repository.EmployeeRepository;
+import com.repository.StoreProcedureDao;
 import com.service.EmployeeService;
 
 @Transactional
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-	EmployeeRepository dao;
+	EmployeeRepository empDao;
 
 	@Autowired
-	public void setDao(EmployeeRepository dao) {
-		this.dao = dao;
+	public void setEmpDao(EmployeeRepository empDao) {
+		this.empDao = empDao;
 	}
 
-	EntityManager em;
+	StoreProcedureDao spDao;
+
+	@Autowired
+	public void setSpDao(StoreProcedureDao spDao) {
+		this.spDao = spDao;
+	}
 
 	@Override
 	public Employee findByEid(Integer eid) {
-		return dao.findByEid(eid);
+		return empDao.findByEid(eid);
 	}
 
 	@Override
 	public List<Employee> findAll() {
-		return dao.findAll();
+		return empDao.findAll();
 	}
 
 	@Override
-	public List<EmployeeOrdersJoinColumn> liftJoinColumn() {
+	public List<EmployeeOrdersJoinColumn> leftJoinColumn() {
 //		 TypedQuery<EmployeeOrdersJoinColumn> query =
 //			      em.createNamedQuery("employee.left", EmployeeOrdersJoinColumn.class);
 //		 List<EmployeeOrdersJoinColumn> list = query.getResultList();
-		List<Employee> list = dao.findAll();
+		List<Employee> list = empDao.findAll();
 		List<EmployeeOrdersJoinColumn> list2 = new ArrayList<EmployeeOrdersJoinColumn>();
 		Integer count = 0;
 		for (Employee e : list) {
@@ -65,11 +70,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<EmployeeOrdersJoinColumn> innerJoinColumn() {
-		List<Employee> list = dao.findAll();
+		List<Employee> list = empDao.findAll();
 		List<EmployeeOrdersJoinColumn> list2 = new ArrayList<EmployeeOrdersJoinColumn>();
 		Integer count = 0;
 		for (Employee e : list) {
-			if (!e.getOrderList().isEmpty()){
+			if (!e.getOrderList().isEmpty()) {
 				for (Orders o : e.getOrderList()) {
 					count += 1;
 					EmployeeOrdersJoinColumn eojc = new EmployeeOrdersJoinColumn(count, e.getEid(), e.getEname(),
@@ -80,6 +85,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		}
 		return list2;
+	}
+
+	@Override
+	public List<EmployeeOrdersJoinColumn> leftJoinColumn2() {
+		return spDao.leftJoinColumn2();
+	}
+
+	@Override
+	public List<EmployeeOrdersJoinColumn> innerJoinColumn2() {
+		return spDao.innerJoinColumn2();
 	}
 
 }

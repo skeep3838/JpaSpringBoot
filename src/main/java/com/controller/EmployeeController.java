@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.model.Employee;
 import com.model.EmployeeOrdersJoinColumn;
 import com.service.EmployeeService;
 import com.service.OrderService;
@@ -29,7 +30,8 @@ public class EmployeeController {
 	
 	@GetMapping("/emlpoyee/left")
 	public String leftJoin(Model model) {
-		List<EmployeeOrdersJoinColumn> left = employeeService.liftJoinColumn();
+//		List<EmployeeOrdersJoinColumn> left = employeeService.leftJoinColumn();
+		List<EmployeeOrdersJoinColumn> left = employeeService.leftJoinColumn2();
 		model.addAttribute("ststus","Employee Left Join Orders");
 		model.addAttribute("employee", left);
 		return "employee";
@@ -44,7 +46,8 @@ public class EmployeeController {
 	
 	@GetMapping("/emlpoyee/inner")
 	public String innerJoin(Model model) {
-		List<EmployeeOrdersJoinColumn> inner = employeeService.innerJoinColumn();
+//		List<EmployeeOrdersJoinColumn> inner = employeeService.innerJoinColumn();
+		List<EmployeeOrdersJoinColumn> inner = employeeService.innerJoinColumn2();
 		model.addAttribute("ststus","Employee Inner Join Orders");
 		model.addAttribute("employee", inner);
 		return "employee";
@@ -52,7 +55,7 @@ public class EmployeeController {
 	
 	@GetMapping("/emlpoyee/fullOuter")
 	public String fullOuterJoin(Model model) {
-		List<EmployeeOrdersJoinColumn> outer = employeeService.liftJoinColumn();
+		List<EmployeeOrdersJoinColumn> outer = employeeService.leftJoinColumn();
 		List<EmployeeOrdersJoinColumn> empNullOrder = orderService.empNullJoinColumn();
 		Integer counter = outer.size();
 		for(EmployeeOrdersJoinColumn e: empNullOrder) {

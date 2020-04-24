@@ -1,5 +1,6 @@
 package com.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.JoinType;
 
 @Entity
 @Table(name = "employee")

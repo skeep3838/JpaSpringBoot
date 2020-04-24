@@ -22,6 +22,14 @@ public class EmployeeOrdersJoinColumn {
 		this.createdate = createdate;
 		this.cid = cid;
 	}
+//	for CriteriaBuilder 產出的joinColumn用
+	public EmployeeOrdersJoinColumn(Integer eid, String ename, Integer oid, Date createdate, Integer cid) {
+		this.eid = eid;
+		this.ename = ename;
+		this.oid = oid;
+		this.createdate = createdate;
+		this.cid = cid;
+	}
 
 	public Integer getSeq() {
 		return seq;
