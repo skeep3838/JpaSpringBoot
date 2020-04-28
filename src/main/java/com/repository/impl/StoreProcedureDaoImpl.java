@@ -50,7 +50,7 @@ public class StoreProcedureDaoImpl implements StoreProcedureDao {
 	    /** 選擇要select的欄位  ,join.get("oid"), join.get("createdate") ,join.get("cid")**/
 	    cq.multiselect(empRoot.get("eid"), empRoot.get("ename"), join.get("oid") ,join.get("createdate") ,join.get("customer").get("cid"));
 	    /** fetch the Employee result **/
-	    List<EmployeeOrdersJoinColumn> result = (List<EmployeeOrdersJoinColumn>)em.createQuery(cq).getResultList();
+	    List<EmployeeOrdersJoinColumn> result = em.createQuery(cq).getResultList();
 	    // 塞入seq的值
 	    int seq=1;
 	    for(EmployeeOrdersJoinColumn e:result) {
@@ -68,11 +68,11 @@ public class StoreProcedureDaoImpl implements StoreProcedureDao {
 //	    , join.get("oid") ,join.get("createdate") ,join.get("customer").get("cid")
 	    cq.multiselect(empRoot.get("eid"), empRoot.get("ename"), join.get("oid") ,join.get("createdate") ,join.get("customer").get("cid"));
 	    List<EmployeeOrdersJoinColumn> result = (List<EmployeeOrdersJoinColumn>)em.createQuery(cq).getResultList();
-//	    int seq=1;
-//	    for(EmployeeOrdersJoinColumn e:result) {
-//	    	e.setSeq(seq);
-//	    	seq++;
-//	    }
+	    int seq=1;
+	    for(EmployeeOrdersJoinColumn e:result) {
+	    	e.setSeq(seq);
+	    	seq++;
+	    }
 		return result;
 	}
 	

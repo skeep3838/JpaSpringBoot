@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.model.Customer;
-import com.model.Employee;
 import com.model.EmployeeOrdersJoinColumn;
 import com.model.Orders;
 import com.repository.OrderRepository;
@@ -70,7 +69,6 @@ public class OrderServiceImpl implements OrderService {
 		return list2;
 	}
 
-	@SuppressWarnings("null")
 	@Override
 	public List<EmployeeOrdersJoinColumn> empNullJoinColumn() {
 		List<Orders> list = dao.findByEmployeeIsNull();

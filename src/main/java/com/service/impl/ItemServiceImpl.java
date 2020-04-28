@@ -1,10 +1,7 @@
 package com.service.impl;
 
-
-
 import java.util.List;
 
-import javax.persistence.StoredProcedureQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
