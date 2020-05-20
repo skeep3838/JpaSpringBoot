@@ -27,21 +27,21 @@ public class CustomerController {
 		return "index";
 	}
 	
-<<<<<<< HEAD
+
 //	test2--------------------------------------------------------
 	@GetMapping("/test2")
 	public String test2(Model model) {
 		List<Customer> cus = customerService.findAll();
 		model.addAttribute("customers", cus);
 		model.addAttribute("status", "test2");
-=======
+		return "index";
+	}
 //	test3-------------------------------------------------------
 	@GetMapping("/")
 	public String test3(Model model) {
 		List<Customer> cus = customerService.findAll();
 		model.addAttribute("customers", cus);
 		model.addAttribute("status", "test3");
->>>>>>> test3
 		return "index";
 	}
 
