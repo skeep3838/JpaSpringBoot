@@ -34,6 +34,7 @@ public class EmployeeController {
 		List<EmployeeOrdersJoinColumn> left = employeeService.leftJoinColumn2();
 		model.addAttribute("ststus","Employee Left Join Orders");
 		model.addAttribute("employee", left);
+		model.addAttribute("stash", "test stash");
 		return "employee";
 	}
 	@GetMapping("/emlpoyee/right")
