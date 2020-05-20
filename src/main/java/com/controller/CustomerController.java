@@ -27,5 +27,14 @@ public class CustomerController {
 		return "index";
 	}
 
+//-------------branch test1-----------------------------------------
+	
+	@GetMapping("/test1")
+	public String test1(Model model) {
+		List<Customer> cus = customerService.findAll();
+		model.addAttribute("customers", cus);
+		model.addAttribute("status", "test1");
+		return "index";
+	}
 
 }
