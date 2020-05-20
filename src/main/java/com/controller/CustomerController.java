@@ -26,6 +26,15 @@ public class CustomerController {
 		model.addAttribute("customers", cus);
 		return "index";
 	}
+	
+//	test3-------------------------------------------------------
+	@GetMapping("/")
+	public String test3(Model model) {
+		List<Customer> cus = customerService.findAll();
+		model.addAttribute("customers", cus);
+		model.addAttribute("status", "test3");
+		return "index";
+	}
 
 
 }
